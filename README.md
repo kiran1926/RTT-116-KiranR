@@ -14,4 +14,4 @@ The repository is structured as follows:
 - **Java**: Core Java concepts such as OOP, Collections, Exception Handling, and more.
 - **Spring Boot**: Building back-end services, REST APIs, and connecting to databases.
 - **Front-end**: Basic front-end development with HTML, CSS, and JavaScript.
-- **Databases**: SQL, JDBC, and ORM frameworks such as Hibernate.
+- **Databases**: SQL, JDBC.
