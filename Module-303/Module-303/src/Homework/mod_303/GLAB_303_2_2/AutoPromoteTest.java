@@ -1,4 +1,4 @@
-package Homework.m303_2.GLAB_303_2_2;
+package Homework.mod_303.GLAB_303_2_2;
 
 public class AutoPromoteTest {
     public static void main (String args [] ) {

@@ -1,4 +1,4 @@
-package Homework.m303_2.GLAB_303_2_1;
+package Homework.mod_303.GLAB_303_2_1;
 
 public class ArithmaticOperators {
     public static void main( String args [] ) {

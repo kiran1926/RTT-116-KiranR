@@ -1,4 +1,4 @@
-package Homework.m303_2.GLAB_303_2_2;
+package Homework.mod_303.GLAB_303_2_2;
 
 //Explicit Typecasting (Narrowing conversion)
 //The process of converting lower data types into higher data types is called widening or narrowing conversion in java
