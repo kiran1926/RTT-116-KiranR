@@ -55,7 +55,7 @@ public class VariablesJavaBasics {
          double total = 4 * chair *( 1 - DISCOUNT) + 3 * table * (1 - DISCOUNT);
          System.out.println("The total price after discount is $"+ total);
 
-         
+
         // SALES_TAX problem
         double greenTea = 4.50;
         double cappuccino = 5.32;
