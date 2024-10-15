@@ -65,6 +65,21 @@ public class DynamicArray {
         return result;
     }
 
+//    public static double [] bubbleSort(double[] array){
+//        int n = array.length;
+//        double result [] = new double[n];
+//        for (int i = 0; i < n; i++){
+//            for(int j = i +1; j < n; j++){
+//
+//            }
+//        }
+
+
+
+
+
+
+
     public static void main (String args []){
 
         double [] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};

@@ -90,7 +90,7 @@ public class StringExamples {
         //variable s6
         String s6 = s4.toUpperCase() + s5;
 
-        // =============== StringBuffer ====================
+        // =============== StringBuffer ==================== KBA
 
         //The StringBuffer is mutable meaning the internal con=tent of the stringBuffer can be changed and it is good
         // to use when doing lots of string manipulation is a high volume system
@@ -158,6 +158,7 @@ public class StringExamples {
 
         sj1.add("Eric");
         sj1.add("Jessica");
+        sj1.add("one more");
 
         System.out.println(sj1);
 

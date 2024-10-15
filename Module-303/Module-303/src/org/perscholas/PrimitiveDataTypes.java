@@ -31,6 +31,20 @@ public class PrimitiveDataTypes {
         char ch = 'Z';
         System.out.println(ch);
         Integer i = Integer.valueOf(45);
+
+
+            int x = 2;
+            int y = 0;
+            for (; y < 10; ++y) {
+                if (y % x == 0)
+                    continue;
+                else if (y == 8)
+                    break;
+                else
+
+                    System.out.print(y + " ");
+            }
+
     }
 }
 

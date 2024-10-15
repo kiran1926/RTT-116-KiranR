@@ -21,4 +21,14 @@ public class Circle extends Shape{
     public static void setPI(double PI) {
         Circle.PI = PI;
     }
+
+    @Override
+    public double calculateArea() {
+        return Math.PI * radius * radius;
+    }
+
+    @Override
+    public double calculatePerimeter() {
+        return 2 * Math.PI * radius;
+    }
 }

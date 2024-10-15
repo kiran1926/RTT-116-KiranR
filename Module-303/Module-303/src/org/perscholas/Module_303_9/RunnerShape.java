@@ -9,6 +9,11 @@ public class RunnerShape {
         c.setPI(4);
         System.out.println(c.getRadius()  + " & " + c.getPI());
 
+        //object typecasting
+        Shape s = (Shape) c;
+        s.setName("Circle");
+
+
 
         //new circle
         Circle c1 = new Circle();
