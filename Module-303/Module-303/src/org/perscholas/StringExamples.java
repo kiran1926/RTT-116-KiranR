@@ -33,7 +33,7 @@ public class StringExamples {
 
         // ====Substring==== very very veryimp
 
-        //             01234567890123
+        //                 01234567890123
         String filename = "someiamge.jpg";
         //this goes from position 0 to position 4 but does not include position 4
         System.out.println(filename.substring(0, 4));
@@ -92,9 +92,9 @@ public class StringExamples {
 
         // =============== StringBuffer ==================== KBA
 
-        //The StringBuffer is mutable meaning the internal con=tent of the stringBuffer can be changed and it is good
+        //The StringBuffer is mutable meaning the internal content of the stringBuffer can be changed and it is good
         // to use when doing lots of string manipulation is a high volume system
-        //TODO - extra reading you should do - compare STringBuffer to the StringBuilder, they are similar
+        //TODO - extra reading you should do - compare StringBuffer to the StringBuilder, they are similar
         //POtentioal Interview q " why would you use a StringBUffer or a StringBUilder over a regular string
         //answer - for memory management.. strings are immutable and the JVM creates a new string in memory and then
         //has to garbage collect them
