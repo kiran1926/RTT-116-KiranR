@@ -1,4 +1,4 @@
-package Homework.mod_303.GLAB_303_10;
+package Homework.mod_303.GLAB_303_10_1;
 
 public class Person {
     String name;

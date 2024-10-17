@@ -1,6 +1,4 @@
-package Homework.mod_303.GLAB_303_10;
-
-import java.sql.SQLOutput;
+package Homework.mod_303.GLAB_303_10_1;
 
 public class TestPeople {
     public static void main ( String args[]){

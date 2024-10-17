@@ -1,4 +1,4 @@
-package Homework.mod_303.GLAB_303_10;
+package Homework.mod_303.GLAB_303_10_1;
 
 public class Girl extends Person {
     static  double  ageFactor = 1.3;
