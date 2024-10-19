@@ -96,7 +96,5 @@ public class IterateOverArrayList {
         System.out.println("lastIndexOf \"Bill\" : " + names.lastIndexOf("Bill"));
 
 
-
-
     }
 }
