@@ -1,0 +1,10 @@
+Line 1
+Line 2
+Line 3 more on the line 3
+Line 1
+Line 2
+Line 3 more on the line 3
+after flush writeLine 1
+Line 2
+Line 3 more on the line 3
+after flush write

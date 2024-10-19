@@ -49,23 +49,22 @@ public class CoffeeShop {
     }
 
     //get main menu printed
-    private int printMainMenu() {
+    private int printMainMenu() throws InvalidInputException {
         System.out.println("1) See Product menu");
         System.out.println("2) Purchase product");
         System.out.println("3) Checkout");
         System.out.println("4) Exit");
 
-        System.out.println(" \nEnter Selection: ");
+//        System.out.println(" \nEnter Selection: ");
+        return readNumberFromUser("\nEnter Selection : ");
 
-        int selection = scanner.nextInt();
-        scanner.nextLine();
-
-        return selection;
-
+//        int selection = scanner.nextInt();
+//        scanner.nextLine();
+//
+//        return selection;
 
 //        try {
 //            int selection = scanner.nextInt();
-//            scanner.nextLine();
 //            return selection;
 //        } catch (Exception e) {
 //            System.out.println("Invalid Selection " + e.getMessage());
@@ -73,7 +72,29 @@ public class CoffeeShop {
 //        } finally {
 //            scanner.nextLine();
 //        }
-
+    }
+    // By adding the throws clause here, I am specifically saying this function can (but may not) throw an exception
+    //called InvalidInputException
+    //this is what is called throwing a checked exception which means that all places in the code that are calling
+    //this method now have
+    private int readNumberFromUser(String question) throws InvalidInputException {
+        System.out.println(question);
+        try {
+            int selection = scanner.nextInt();
+            //normally a return stops executionof code at that point and executes the function
+            // *****!!!!!!  in this case it will still call the finally block
+            return selection;
+            //this is interesting wrinkle ....java will call the finally block even still
+        } catch (Exception e) {
+            //this is logic we are adding as an engineer so we know there was a problem
+            //this is not always the best of handling things
+            System.out.println("Invalid input: this is an error" + e.getMessage());
+            throw new InvalidInputException("Invalid input: " + e.getMessage());
+        } finally {
+            // this is a good example of usage for a finally block is to clear the Scanner so it is ready for the
+            // next time this function is called.
+            scanner.nextLine();
+        }
     }
 
     public void addProductToCart() {
@@ -81,55 +102,88 @@ public class CoffeeShop {
         printProductMenu();
 
         // 2 prompt the user to enter an item # number to buy
-        System.out.println("Enter product number: ");
-        int selection = scanner.nextInt();
-        scanner.nextLine();
 
-        // we want to check that the user has entered a valid product number
-        if (selection >= 1 && selection <= products.size()) {
-            // 3. add to the cart array                                                                                     //
-            // we are subtracting 1 from user input to get the real position in the array
-            //because most people dont have a concept of the 0th in a list
-            Product p = products.get(selection - 1);
+        try {
+            int selection = readNumberFromUser("Enter Product Number: ");  //TRY DEBUGGING HERE
 
-            // prompt the user to enter the quantity of selected product
-            System.out.println("How many " + p.getName() + " would you like to order? ");
-            int quantity = scanner.nextInt();
-           // p.setQuantity(quantity);
-            p.setQuantity(p.getQuantity() + quantity);
+            // we want to check that the user has entered a valid product number
+            if (isProductSelectionValid(selection)) {
+                //we changed this if (selection >= 1 && selection <= products.size()) {
+                // 3. add to the cart array
+                // we are subtracting 1 from user input to get the real position in the array
+                //because most people dont have a concept of the 0th in a list
+                Product p = products.get(selection - 1);
 
-            if (quantity > 0) {
-//                for(int i = 0; i < quantity; i++) {
-                    cart.add(p);
-//                }
-                System.out.println(p.getQuantity()+ " quantity of " + p.getName() + " added to your cart.\n");
+                // prompt the user to enter the quantity of selected product
+//            System.out.println("How many " + p.getName() + " would you like to order? ");
+//            int quantity = scanner.nextInt();
+                int quantity = readNumberFromUser("Enter quantity to buy: ");
+
+                if (quantity <= 0) {
+                    System.out.println("Must buy at least one item");
+                } else {
+                    // p.setQuantity(quantity);
+                    p.setQuantity(p.getQuantity() + quantity);
+
+                    if (!doesSelectedProductExistsInCart(p)) {
+                        //right here add a for loop to check if the product is already existinf in the cart
+                        cart.add(p);
+                    }
+                    System.out.println(p.getQuantity() + " quantity of " + p.getName() + " added to your cart.\n");
+                }
+            } else {
+                System.out.println("Invalid item selection");
             }
-        } else {
-            System.out.println("Invalid item selection");
+        } catch (InvalidInputException iie) {
+            System.out.println("======Here=====");
         }
-
         // 4. prompt how many do you want to buy
         // 5. make adjustments to quantity on product
     }
+
+    private boolean isProductSelectionValid(int selection) {
+        if (selection >= 1 && selection <= products.size()) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    private boolean doesSelectedProductExistsInCart(Product purchase) {
+        boolean found = false;
+
+        //start looping all over the items in the cart and if the name of the purchased item is the same
+        //name as one of the products in the cart then we know it is already in the cart
+        for (Product item : cart) {
+            if (item.getName().equals(purchase.getName())) {
+                found = true;
+                break;
+            }
+        }
+
+        return found;
+    }
+
 
     public void checkout() {
 
         System.out.println(" ==== Items in your cart ====");
 
-        System.out.println(" Item Name " + " \t " + " Price "+ " \t " + " Quantity "+ " \t "+ " Total Price ");
+        System.out.println(" Item Name " + " \t " + " Price " + " \t " + " Quantity " + " \t " + " Total Price ");
         //list the items in the cart
         double subtotal = 0.0;
 
         //System.out.println(item.getName() + " \t " + item.getQuantity()+ " \t $" + item.getPrice());
         for (Product item : cart) {
-           double total_price_of_item = item.getPrice() * item.getQuantity();
+            double total_price_of_item = item.getPrice() * item.getQuantity();
             subtotal = subtotal + item.getPrice() * item.getQuantity();
             //right justify prices
             //String formattedPriceOfItem = String.format("%4.2f",item.getPrice());
-           // String formattedTotal_PriceOfItem = String.format("%10.2f",total_price_of_item);
+            // String formattedTotal_PriceOfItem = String.format("%10.2f",total_price_of_item);
 
 
-            System.out.println(item.getName() + "\t  $" + item.getPrice()+ " \t\t " + item.getQuantity()+ " \t\t\t\t$" + total_price_of_item);
+            System.out.println(item.getName() + "\t  $" + item.getPrice() + " \t\t " + item.getQuantity() + " \t\t\t\t$" + total_price_of_item);
         }
         System.out.println("");
         //String formatted_subtotal = String.format("%10.2f", subtotal);
@@ -147,40 +201,47 @@ public class CoffeeShop {
     }
 
 
-    public void start() {
+    public void start(){
         //this becomes similar to the main method in that it will be where our project starts and runs
         // initialize the products for sale
         initProducts();
         System.out.println(" \n========= Welcome to the Coffee Shop ========= \n");
 
         //repeat forever until the user enters selection 4 which will exit the program
-        while (true) {
-            //print the menu and get back the user selected input
-            int selection = printMainMenu();
+            while (true) {
+                //print the menu and get back the user selected input
+               try {
+                   int selection = printMainMenu();
 
-            if (selection == 1) {
-                //print the product menu
-                printProductMenu();
-            } else if (selection == 2) {
-                //purchase product / add to cart
-                addProductToCart();
-            } else if (selection == 3) {
-                // checkout
-                checkout();
-            } else if (selection == 4) {
-                //exit
-                System.out.println("Good Bye");
-                System.exit(0);
-            } else {
-                System.out.println("Invalid command entered " + selection + "\n");
+                   if (selection == 1) {
+                       //print the product menu
+                       printProductMenu();
+                   } else if (selection == 2) {
+                       //purchase product / add to cart
+                       addProductToCart();
+                   } else if (selection == 3) {
+                       // checkout
+                       checkout();
+                   } else if (selection == 4) {
+                       //exit
+                       System.out.println("Good Bye");
+                       System.exit(0);
+                   } else {
+                       System.out.println("Invalid command entered " + selection + "\n");
+                   }
+
+               }catch (InvalidInputException iie){
+                   System.out.println("Invalid selection");
+               }
+
             }
-        }
+
+
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         CoffeeShop cs = new CoffeeShop();
         cs.start();
-
     }
 }
 //q.setQuantity(q.getQuantity + quantity);

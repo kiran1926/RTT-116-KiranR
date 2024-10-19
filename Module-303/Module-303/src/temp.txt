@@ -1,0 +1,5 @@
+line q
+line R
+line Y
+line z
+this is a text file reading example
