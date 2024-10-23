@@ -19,6 +19,22 @@ public class CalcRunner {
         t.setHeight(10.0);
         t.setName("Triangle");
 
+
+        //anonymous code block//module 303.14
+        Shape sq = new Shape(){
+
+            @Override
+            public double calculateArea() {
+                return 0;
+            }
+
+            @Override
+            public double calculatePerimeter() {
+                return 0;
+            }
+        };
+        sq.setName("Square");
+
         // we can no longer create or instantiate new shape because we dceclared shape as abstract class now
         // Shape s = new Shape();
 

@@ -17,13 +17,13 @@ public class MyCourseRunner {
 
             while (input.hasNextLine()) {
                 String Line = input.nextLine();
-                String[] splitedLine = Line.split(",");
+                String[] splittedLine = Line.split(",");
 
 // course cObj1 = new course(splitedLine[0], splitedLine[1], splitedLine[2]);
                 Course cObj = new Course();
-                cObj.setCode(splitedLine[0]);
-                cObj.setCourse_name( splitedLine[1]);
-                cObj.setInstructor_name(splitedLine[2]);
+                cObj.setCode(splittedLine[0]);
+                cObj.setCourse_name( splittedLine[1]);
+                cObj.setInstructor_name(splittedLine[2]);
 
                 data.add(cObj);
             }

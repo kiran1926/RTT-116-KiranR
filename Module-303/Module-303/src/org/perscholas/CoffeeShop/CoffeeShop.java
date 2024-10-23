@@ -1,6 +1,8 @@
 package org.perscholas.CoffeeShop;
 
+import javax.crypto.spec.PSource;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.text.DecimalFormat;
@@ -33,9 +35,54 @@ public class CoffeeShop {
         Product p3 = new Product("Sugar Cookie", 5.89, 0);
         products.add(p3);
 
+        Product p5 = new Product("Ginger Cookie", 5.89, 0);
+        products.add(p5);
+
         Product p4 = new Product("Egg Sandwich", 6.49, 0);
         products.add(p4);
 
+        //let's sort the list by the price
+        //TODO - homework- write this function using a for loop
+        //use a bubble sort algorithm - look this up on google
+        //sort the list of products by price using 2 nested for loops to implement a bubble sort in a function
+        //should create a function that will take in a List<Product> to be sorted and return a sorted LIst<Product>
+
+
+
+
+
+        //new syntax for comparing each product -  comparing(Product::getPrice)
+//        List<Product> sorted = products.stream().sorted(Comparator.comparing(Product::getPrice)).toList();
+
+
+        //this just prints the products and fix it in product
+//        sorted.forEach(p-> System.out.println(p));
+        //overwrite the original product list with our new sorted list
+//        products = sorted;
+
+        //this will modify original list... using stream will not modify the original list
+//        products.sort(Comparator.comparing(Product::getPrice).thenComparing(Product::getName));
+//        products.forEach(p -> System.out.println(p));
+
+        sortByPrice(products);
+
+    }
+    private List<Product> sortByPrice (List<Product> source) {
+        for (int i = 0; i < source.size()-1; i++){
+            for(int j = i + 1; j < source.size(); j++ ){
+
+                Product p0 = source.get(i);
+                Product p1 = source.get(j);
+
+                if(p0.getPrice() > p1.getPrice()){
+                    source.set(i, p1);
+                    source.set(j, p0);
+                }
+
+            }
+            products.forEach(p -> System.out.println(p));
+        }
+        return null;
     }
 
     // printing product menu
@@ -47,6 +94,30 @@ public class CoffeeShop {
         //give some white space after print
         System.out.println("\n");
     }
+    //TODO - homework #2 - create a new main menu option that allows you to search the list of products for a user entered name
+    //1a) Add the search capability to the main menu when you start the coffee shop as a new option
+    //1) ask the user to enter a search phrase "coffee" and
+    //2)filter the list of products to show only the products that match the phrase entered
+    //2b) do not alter the original list of products which means use the .stream()
+    //2c) use a lambda to print out the sorted list using a product.toString() method
+    //2c-p1) create a toString method on your product object
+    //3) Add the search capability to the main menu when you start the coffee shop as a new option
+
+    private void productSearch (){
+        System.out.println("Enter item name to search: ");
+         try {
+             String itemName = scanner.nextLine();
+             List<Product> searchResult = products.stream().filter(p -> p.getName().toLowerCase().contains(itemName)).toList();
+             searchResult.forEach(p -> System.out.println(p));
+
+             if(itemName.isEmpty()){
+                 System.out.println("Empty search field.");
+             }
+
+         }catch (Exception ee){
+             System.out.println("Item not available");
+         }
+    }
 
     //get main menu printed
     private int printMainMenu() throws InvalidInputException {
@@ -54,6 +125,7 @@ public class CoffeeShop {
         System.out.println("2) Purchase product");
         System.out.println("3) Checkout");
         System.out.println("4) Exit");
+        System.out.println("5) Search a product");
 
 //        System.out.println(" \nEnter Selection: ");
         return readNumberFromUser("\nEnter Selection : ");
@@ -165,7 +237,6 @@ public class CoffeeShop {
         return found;
     }
 
-
     public void checkout() {
 
         System.out.println(" ==== Items in your cart ====");
@@ -210,33 +281,32 @@ public class CoffeeShop {
         //repeat forever until the user enters selection 4 which will exit the program
             while (true) {
                 //print the menu and get back the user selected input
-               try {
-                   int selection = printMainMenu();
+                try {
+                    int selection = printMainMenu();
 
-                   if (selection == 1) {
-                       //print the product menu
-                       printProductMenu();
-                   } else if (selection == 2) {
-                       //purchase product / add to cart
-                       addProductToCart();
-                   } else if (selection == 3) {
-                       // checkout
-                       checkout();
-                   } else if (selection == 4) {
-                       //exit
-                       System.out.println("Good Bye");
-                       System.exit(0);
-                   } else {
-                       System.out.println("Invalid command entered " + selection + "\n");
-                   }
-
-               }catch (InvalidInputException iie){
-                   System.out.println("Invalid selection");
-               }
+                    if (selection == 1) {
+                        //print the product menu
+                        printProductMenu();
+                    } else if (selection == 2) {
+                        //purchase product / add to cart
+                        addProductToCart();
+                    } else if (selection == 3) {
+                        // checkout
+                        checkout();
+                    } else if (selection == 4) {
+                        //exit
+                        System.out.println("Good Bye");
+                        System.exit(0);
+                    } else if (selection == 5) {
+                        productSearch();
+                    } else {
+                        System.out.println("Invalid command entered " + selection + "\n");
+                    }
+                } catch (InvalidInputException iie) {
+                    System.out.println("Invalid selection");
+                }
 
             }
-
-
     }
 
     public static void main(String[] args) throws Exception {
