@@ -41,6 +41,14 @@ public class CoffeeShop {
         Product p4 = new Product("Egg Sandwich", 6.49, 0);
         products.add(p4);
 
+        //load the products from the file
+        List<Product> loaded = new ProductLoader().loadProducts();
+
+        //add all the products we load to our product lis
+        products.addAll(loaded);
+
+
+
         //let's sort the list by the price
         //TODO - homework- write this function using a for loop
         //use a bubble sort algorithm - look this up on google
@@ -52,7 +60,7 @@ public class CoffeeShop {
 
 
         //new syntax for comparing each product -  comparing(Product::getPrice)
-//        List<Product> sorted = products.stream().sorted(Comparator.comparing(Product::getPrice)).toList();
+        List<Product> sorted = products.stream().sorted(Comparator.comparing(Product::getPrice)).toList();
 
 
         //this just prints the products and fix it in product
@@ -61,12 +69,17 @@ public class CoffeeShop {
 //        products = sorted;
 
         //this will modify original list... using stream will not modify the original list
-//        products.sort(Comparator.comparing(Product::getPrice).thenComparing(Product::getName));
+        products.sort(Comparator.comparing(Product::getPrice).thenComparing(Product::getName));
 //        products.forEach(p -> System.out.println(p));
 
         sortByPrice(products);
-
     }
+
+    // TODO - Homework #1 - write this function using a for loop
+    // use a bubble sort algorithm - look this up on google
+    // sort the list of products by price using 2 nested for loops to implement a bubble sort in a function
+    // should create a function that will tke in a List<Product> to be sorted and return a sorted List<Product>
+    // commenting on the top of a function is generally bad practice .. im just doign this for the assginment
     private List<Product> sortByPrice (List<Product> source) {
         for (int i = 0; i < source.size()-1; i++){
             for(int j = i + 1; j < source.size(); j++ ){
@@ -80,8 +93,9 @@ public class CoffeeShop {
                 }
 
             }
-            products.forEach(p -> System.out.println(p));
+
         }
+        products.forEach(p -> System.out.println(p));
         return null;
     }
 
@@ -105,19 +119,45 @@ public class CoffeeShop {
 
     private void productSearch (){
         System.out.println("Enter item name to search: ");
-         try {
-             String itemName = scanner.nextLine();
-             List<Product> searchResult = products.stream().filter(p -> p.getName().toLowerCase().contains(itemName)).toList();
-             searchResult.forEach(p -> System.out.println(p));
+        String itemName = scanner.nextLine();
 
-             if(itemName.isEmpty()){
-                 System.out.println("Empty search field.");
-             }
+        if(itemName.isEmpty()) {
+            System.out.println("Empty search field.");
+        }else if (!itemName.isEmpty()){
+            List<Product> searchResult = products.stream().filter(p -> p.getName().toLowerCase().contains(itemName)).toList();
+            searchResult.forEach(p -> System.out.println(p));
+        }else{
+            System.out.println("Item not found");
+        }
 
-         }catch (Exception ee){
-             System.out.println("Item not available");
-         }
     }
+
+    //to delete a product
+    public void deleteProduct(){
+//        System.out.println("Which item do you want remove from the cart? ");
+        //printProductMenu(cart);
+
+//        String item_to_delete = scanner.nextLine();
+        try{
+            int selection = readNumberFromUser("Enter product Number to remove: ");
+            //do some error checking here on both of these
+            int remove_quantity = readNumberFromUser("Enter quantity to remove: ");
+            Product remove_product = cart.get(selection-1);
+
+            if( remove_product.getQuantity() <= remove_quantity){
+                remove_product.setQuantity(remove_product.getQuantity()-remove_quantity);
+            }
+
+        }catch (Exception e){
+            System.out.println("inavlid product selection");
+        }
+
+        System.out.println("Removed product from the cart");
+    }
+
+
+
+
 
     //get main menu printed
     private int printMainMenu() throws InvalidInputException {
@@ -126,7 +166,9 @@ public class CoffeeShop {
         System.out.println("3) Checkout");
         System.out.println("4) Exit");
         System.out.println("5) Search a product");
-
+        if(cart.size()>0) {
+            System.out.println("6) Remove Product from Cart");
+        }
 //        System.out.println(" \nEnter Selection: ");
         return readNumberFromUser("\nEnter Selection : ");
 
@@ -299,11 +341,13 @@ public class CoffeeShop {
                         System.exit(0);
                     } else if (selection == 5) {
                         productSearch();
+                    } else if (selection == 6 && cart.size()>0) {
+                            deleteProduct();
                     } else {
                         System.out.println("Invalid command entered " + selection + "\n");
                     }
                 } catch (InvalidInputException iie) {
-                    System.out.println("Invalid selection");
+                    System.out.println("Invalid selection \n");
                 }
 
             }

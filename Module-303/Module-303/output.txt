@@ -1,1 +1,127 @@
-Writing to a file.
+I have added the string: abcdat the index: 0
+I have added the string: 1234at the index: 1
+I have replaced the string:  with an empty string
+This is an invalid string
+
+
+Exp 
+A new cricket team has been formed
+A new football team has been formed
+The average age of the team is 30.18
+The average age of the team is 27.82
+Player with id: 11 has retired
+Player with id: 7 has retired
+Player with id: 6 has retired
+Player with id: 1 has retired
+Player has already retired
+Player with id: 5 has been transferred with a fee of 659
+
+Mine:
+A new cricket team has been formed
+A new football team has been formed
+The average age of the team is 30.60
+The average age of the team is 27.82
+Player with id: 11 has retired.
+Player with id: 7 has retired.
+Player with id: 6 has retired.
+Player with id: 1 has retired.
+Player has already retired.
+player with id: 1 has been transferred with a fee of 659
+
+
+Hackerrank prob 2
+
+class Cricket implements Sport {
+    private int[] playerIDs;
+    
+    
+    public Cricket(){
+        playerIDs= new int[12];
+        for (int i = 1; i<playerIDs.length; i++){
+            playerIDs[i] =  1;
+        }
+        System.out.println("A new cricket team has been formed");
+    }
+    //calculate average age
+    @Override
+    public void calculateAvgAge(int[] age){
+        double sum = 0;
+
+        for (int i = 0; i < age.length; i++){
+            sum += age[i];
+        }
+        double avgAge = sum / (age.length);
+
+        System.out.printf("The average age of the team is %.2f\n", avgAge); 
+    }
+    
+    // player retirement
+    @Override
+    public void retirePlayer(int id){
+        if (id > 0){
+            if (playerIDs[id] == -1){
+                System.out.println("Player has already retired");
+            }else{
+                playerIDs[id] = -1;
+                System.out.println("Player with id: "+ id + " has retired");
+            }
+        }
+    }
+    
+
+}
+
+class Football implements Sport{
+    private int[] playerIDs;
+    
+    public Football(){
+        
+        //create array size +1 to adjust 1 index based array
+       
+        playerIDs = new int[12];
+        for (int i = 1; i < playerIDs.length; i++) {
+            playerIDs[i] = 1;
+        }
+        System.out.println("A new football team has been formed");
+    }
+    //calculate average age
+    @Override
+    public void calculateAvgAge(int[] age) {
+        double sum = 0;
+
+        for (int ages: age ) {
+            sum += ages;
+        }
+        double avgAge = sum / (age.length);
+
+        System.out.printf("The average age of the team is %.2f\n", avgAge);
+    }
+    //retire player
+    @Override
+     public void retirePlayer(int id) {
+        if (id > 0){
+            if (playerIDs[id] == -1){
+                System.out.println("Player has already retired");
+            }else{
+                playerIDs[id] = -1;
+                System.out.println("Player with id: "+ id + " has retired");
+            }
+        }
+    }
+    //transfer player
+    public void playerTransfer(int fee, int id) {
+        if (id > 0) {
+            if (playerIDs[id] == 1) {
+                System.out.println("Player with id: " + id + " has been transferred with a fee of " + fee);
+            } else if (playerIDs[id] == -1) {
+                System.out.println("Player has already retired");
+            }
+        }
+    }
+ 
+}
+
+
+
+
+
