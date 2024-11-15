@@ -1,17 +1,17 @@
 -- Join tables
 
 -- ==================== LEFT JOIN ===========================
-
-
 select c.id as cusotmer_id, c.customer_name, o.id, o.status
 from customers c
 LEFT JOIN orders o on c.id = o.customer_id;
 
+-- theta style
 select c.id as customer_id, c.customer_name, o.id, o.status
 from customers c, orders o
 where  c.id = o.customer_id
 order by c.id;
 
+-- ====== Inner JOIN =========
 -- this is the same regular query except using MYSQL syntax
 select c.id as customer_id, c.customer_name, o.id as order_id, o.status
 from customers c

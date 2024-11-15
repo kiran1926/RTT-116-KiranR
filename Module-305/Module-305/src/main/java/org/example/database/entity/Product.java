@@ -1,11 +1,13 @@
-package org.example.Database.entity;
+package org.example.database.entity;
 
 
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "productlines")
+@Table(name = "products")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,6 +19,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<OrderDetail> orderDetails;
 
     @Column( name = "product_code")
     private String productCode;

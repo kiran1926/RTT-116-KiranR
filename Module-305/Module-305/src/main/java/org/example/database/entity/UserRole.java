@@ -1,4 +1,4 @@
-package org.example.Database.entity;
+package org.example.database.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,16 +10,18 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class ProductLine {
 
+public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column( name = "product_line")
-    private String productLine;
+    @Column(name = "user_id")
+    private int userId;
 
-    @Column ( name = "description")
-    private String description;
+    @Column (name = "role_name")
+    private String roleName;
+
+
 }

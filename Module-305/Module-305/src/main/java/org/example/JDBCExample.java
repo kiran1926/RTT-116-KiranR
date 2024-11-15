@@ -7,9 +7,7 @@ public class JDBCExample {
     public static void main(String[] args) throws ClassNotFoundException {
         String dburl = "jdbc:mysql://127.0.0.1:3306/classic_models";
         String user = "root";
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter you DB pwd");
-        String password = sc.nextLine();
+        String password = "123456";
         System.out.println("-------- MySQL JDBC Connection Demo ------------");
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

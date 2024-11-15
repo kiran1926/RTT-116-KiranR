@@ -2,9 +2,20 @@
 
 -- 1) which product did we sell the most of?  
 -- I would like to see the number of orders, the total amount sold, and the product name
-select count(product_id) as number_of_orders,sum(price_each * quantity_ordered) as total_sale_of_product from orderdetails where product_id in (select id from products)
+select count(product_id) as number_of_orders,sum(price_each * quantity_ordered) as total_sale_of_product from orderdetails where product_id in (select d from products)
 group by product_id
-order by number_of_orders desc, total_sale_of_product desc;
+order by number_of_orders desc, total_sale_of_product desc
+limit 1;
+
+-- alternate way use 3 tables
+SELECT product_name,
+       COUNT(order_id) AS number_of_orders,
+       SUM(price_each * quantity_ordered) AS total_sale_of_product
+FROM orderdetails od, products p 
+WHERE od.product_id = p.id and od.order_id IN (SELECT id FROM orders)
+GROUP BY product_name
+ORDER BY number_of_orders DESC, total_sale_of_product DESC
+LIMIT 1;                       
 
 
 
@@ -23,8 +34,21 @@ select p.product_name, year(o.order_date), sum(quantity_ordered * (price_each - 
 from orderdetails od, products p, orders o
 where od.product_id = p.id
 	and od.order_id = o.id
-group by year(o.order_date), p.id
-order by total_product_profit desc, year(o.order_date) desc;
+group by year(o.order_date), p.product_name
+order by year(o.order_date) desc, total_product_profit desc;
+
+-- tony 2)
+SELECT 
+EXTRACT(YEAR FROM o.order_date) AS Year,
+p.product_name,
+SUM(od.quantity_ordered * (od.price_each - p.buy_price)) AS Profit
+FROM orderdetails od
+JOIN orders o ON od.order_id = o.id
+JOIN products p ON od.product_id = p.id
+GROUP BY
+Year, p.product_name
+ORDER BY 
+year DESC, Profit DESC;
 
 select * from products;
 
@@ -47,7 +71,7 @@ select * from payments;
 -- compare the total amount paid to the total amount purchased.
 select c.id, c.contact_firstname, c.contact_lastname, 
 sum(quantity_ordered * price_each) as total_purchase, sum(pm.amount) as total_payment, 
-if(sum(quantity_ordered * price_each) > sum(pm.amount), (sum(quantity_ordered * price_each) - sum(pm.amount)), 0 ) as outstanding_balance 
+if(sum(quantity_ordered * price_each) > sum(pm.amount), (sum(quantity_ordered * price_each) - sum(pm.amount)), 'No outstanding' ) as outstanding_balance 
 from customers c, payments pm, orderdetails od, orders o
 where pm.customer_id = c.id
 	and o.customer_id = c.id
@@ -55,7 +79,46 @@ where pm.customer_id = c.id
 group by c.id
 order by c.id;
 
--- 01:03:51	select c.id, sum(sum(quantity_ordered * price_each) - sum(amount)) as outstanding_balance, c.contact_firstname, c.contact_lastname from customers c, payments pm, orderdetails od, orders o where pm.customer_id = c.id  and o.customer_id = c.id     and od.order_id = o.id group by c.id order by outstanding_balance desc LIMIT 0, 1000	Error Code: 1111. Invalid use of group function	0.0073 sec
+-- tony 4)
+select
+c.customer_name AS Customer, 
+SUM(od.quantity_ordered * od.price_each) AS Due, 
+COALESCE(SUM(p.amount), 0) AS Paid, 
+SUM(od.quantity_ordered * od.price_each) - COALESCE(SUM(p.amount), 0) AS Balance
+FROM customers c
+JOIN orders o on c.id = o.customer_id
+JOIN orderdetails od ON o.id = od.order_id
+LEFT JOIN payments p ON c.id = p.customer_id
+GROUP BY c.id, c.customer_name
+HAVING Balance > 0
+ORDER BY Balance DESC;
+
+-- 4) mikayil
+SELECT 
+    c.customer_name AS Customer, 
+    od.total_due AS Due, 
+    COALESCE(p.total_paid, 0) AS Paid, 
+    od.total_due - COALESCE(p.total_paid, 0) AS Balance
+FROM customers c
+JOIN (
+    SELECT o.customer_id, 
+           SUM(od.quantity_ordered * od.price_each) AS total_due
+    FROM orders o
+    JOIN orderdetails od ON o.id = od.order_id
+    GROUP BY o.customer_id
+) od ON c.id = od.customer_id
+LEFT JOIN (
+    SELECT customer_id, 
+           SUM(amount) AS total_paid
+    FROM payments
+    GROUP BY customer_id
+) p ON c.id = p.customer_id
+ORDER BY Balance DESC;
+
+-- alternate way to 4th prob
+-- use query as sub table then i can reference it in query
+select c.id, (select sum(pm.amount) from payments pm where pm.customer_id =c.id) as total_payment
+from customers c;
 
 
 

@@ -1,10 +1,12 @@
-package org.example.Database.entity;
+package org.example.database.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,6 +17,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<OrderDetail> orderDetails;
 
     @Column (name = "customer_id")
     private int customerId;

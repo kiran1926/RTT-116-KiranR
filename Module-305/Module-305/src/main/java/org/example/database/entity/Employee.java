@@ -1,49 +1,54 @@
-package org.example.Database.entity;
-
+package org.example.database.entity;
 
 import jakarta.persistence.*;
-
+import lombok.ToString;
+import java.util.List;
 @Entity
-@Table (name = "employees")
+@Table(name = "employees")
+
 public class Employee {
 
     // the @Id annotation tells hibernate that this is the primary key for this entity
     @Id
-    // this tells hibernate that the database will sutoincremenet the new Id for a new record in the database
+    // this tells hibernate that the database will auto increment the new Id for a new record in the database
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //this defines the database column
-    @Column(name ="id")
-    private int id;
+    @Column(name = "id")
+    private Integer id;
 
-    @Column(name ="office_id")
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Customer> customers;
+
+    @Column(name = "office_id")
     private int officeId;
 
-    @Column(name ="firstname")
+    @Column(name = "firstname")
     private String firstname;
 
-    @Column(name ="lastname")
+    @Column(name = "lastname")
     private String lastname;
 
-    @Column(name ="extension")
+    @Column(name = "extension")
     private String extension;
 
-    @Column(name ="email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name ="reports_to")
+    @Column(name = "reports_to")
     private int reportsTo;
 
-    @Column(name ="job_title")
+    @Column(name = "job_title")
     private String jobTitle;
 
-    @Column(name ="vacation_hours")
+    @Column(name = "vacation_hours")
     private int vacationHours;
 
-    @Column(name ="profile_image_url")
+    @Column(name = "profile_image_url")
     private String profileImageUrl;
 
     //empty constructor
-    public Employee (){
+    public Employee() {
 
     }
 
@@ -61,7 +66,15 @@ public class Employee {
         this.vacationHours = vacationHours;
     }
 
-    public int getId() {
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
+
+    public Integer getId() {
         return id;
     }
 
@@ -140,7 +153,6 @@ public class Employee {
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
     }
-
 
     // tostring
 
