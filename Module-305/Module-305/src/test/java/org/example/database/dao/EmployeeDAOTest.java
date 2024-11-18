@@ -1,12 +1,10 @@
 package org.example.database.dao;
 
 import org.example.database.entity.Employee;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
 public class EmployeeDAOTest {
@@ -14,6 +12,7 @@ public class EmployeeDAOTest {
     EmployeeDAO employeeDAO = new EmployeeDAO();
 
     //test for findById
+    @Order(1)
     @Test
     public void findByIdTest(){
 
@@ -30,6 +29,7 @@ public class EmployeeDAOTest {
     }
 
     //test for findByFirstName
+    @Order(2)
     @Test
     public void findbyFirstNameTest(){
         //given
@@ -43,13 +43,14 @@ public class EmployeeDAOTest {
     }
 
     //create a new employee
+    @Order(3)
     @Test
     public void createTest(){
         //given
         Employee givenEmp = new Employee();
         givenEmp.setFirstname("Veda");
         givenEmp.setLastname("Raj");
-        givenEmp.setEmail("veda1234567@classicmodelcars.com");
+        givenEmp.setEmail("veda123456789@classicmodelcars.com");
         givenEmp.setJobTitle("Sales Rep");
         givenEmp.setExtension("x3987");
 
@@ -64,13 +65,14 @@ public class EmployeeDAOTest {
         //assertions for each field
         Assertions.assertEquals("Veda", actual.getFirstname());
         Assertions.assertEquals("Raj", actual.getLastname());
-        Assertions.assertEquals("veda1234567@classicmodelcars.com", actual.getEmail());
+        Assertions.assertEquals("veda123456789@classicmodelcars.com", actual.getEmail());
         Assertions.assertEquals("Sales Rep", actual.getJobTitle());
         Assertions.assertEquals("x3987", actual.getExtension());
 
     }
 
     //update test
+    @Order(4)
     @Test
     public void updateTest(){
 
@@ -89,6 +91,7 @@ public class EmployeeDAOTest {
     }
 
     //to delete the above created employee
+    @Order(5)
     @Test
     public void deleteTest(){
 

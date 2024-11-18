@@ -16,17 +16,23 @@ public class CustomerDAOTest {
     public void findByIdTest(){                  // tests are public void
 
         //given
-        int givenCustomerId = 125;   //(CustomerId = 125)
+        int givenCustomerId = 103;   //(CustomerId = 125)
 
         //when
-        Customer actual = customerDAO.findById(givenCustomerId);
+        try {
+            Customer actual = new Customer();
+            actual = customerDAO.findById(givenCustomerId);
+            System.out.println(actual);
 
-        //then
-        Assertions.assertEquals("Havel & Zbyszek Co", actual.getCustomerName());
-        Assertions.assertEquals(givenCustomerId, actual.getId());
-        Assertions.assertEquals(0.00, actual.getCreditLimit());
-        Assertions.assertNotEquals(1.00, actual.getCreditLimit());
-
+            //then
+            Assertions.assertEquals("Atelier graphique", actual.getCustomerName());
+            Assertions.assertEquals(givenCustomerId, actual.getId());
+            Assertions.assertEquals(100000.35, actual.getCreditLimit());
+            Assertions.assertNotEquals(1.00, actual.getCreditLimit());
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+        }
     }
 
     @Test

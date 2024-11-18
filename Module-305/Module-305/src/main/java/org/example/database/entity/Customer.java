@@ -24,7 +24,7 @@ public class Customer {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "sales_rep_employee_id", nullable = false)
+    @JoinColumn(name = "sales_rep_employee_id")
     @ToString.Exclude
     private Employee employee;
 
@@ -33,7 +33,7 @@ public class Customer {
     //to solve this problem, we make this field read only by adding insertable = false and updatable = false
     //TLDR - the foreign key must be marked as read only for hibernate
     @Column(name = "sales_rep_employee_id", insertable = false, updatable = false)
-    private int salesRepEmployeeId;
+    private Integer salesRepEmployeeId;
 
     @Column(name = "customer_name")
     private String customerName;
