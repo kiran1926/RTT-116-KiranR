@@ -3,6 +3,8 @@ package org.example.database.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "customers")
 @AllArgsConstructor
@@ -67,4 +69,25 @@ public class Customer {
 
     @Column(name = "credit_limit", columnDefinition = "DECIMAL")
     private Double creditLimit;
+
+    //practice of .equals() or use @EqualsAndHashCode annotation at the top and add at employee column @EqualsAndHashCode.Exclude like we did for @toString.Exclude
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(id, customer.id) && Objects.equals(salesRepEmployeeId,
+                customer.salesRepEmployeeId) && Objects.equals(customerName, customer.customerName) &&
+                Objects.equals(contactLastname, customer.contactLastname) &&
+                Objects.equals(contactFirstname, customer.contactFirstname) &&
+                Objects.equals(phone, customer.phone) && Objects.equals(addressLine1, customer.addressLine1) &&
+                Objects.equals(addressLine2, customer.addressLine2) && Objects.equals(city, customer.city) &&
+                Objects.equals(state, customer.state) && Objects.equals(postalCode, customer.postalCode) &&
+                Objects.equals(country, customer.country) && Objects.equals(creditLimit, customer.creditLimit);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, salesRepEmployeeId, customerName, contactLastname, contactFirstname, phone, addressLine1, addressLine2, city, state, postalCode, country, creditLimit);
+    }
 }

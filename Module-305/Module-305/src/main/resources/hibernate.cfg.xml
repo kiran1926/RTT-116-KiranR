@@ -25,8 +25,8 @@
         <!-- allow hibernate to get stuff even after the session is closed -->
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
 
-        <!-- checking to fix error of autocommit
-        <property name="hibernate.connection.autocommit">true</property> -->
+        <!-- checking to fix error of autocommit -->
+        <property name="hibernate.connection.autocommit">true</property>
         <!-- connection pool reduces the load on the server -->
         <property name="connection.pool_size">3</property>
 

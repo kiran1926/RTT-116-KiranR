@@ -36,7 +36,7 @@ public class Employee {
     private String email;
 
     @Column(name = "reports_to")
-    private int reportsTo;
+    private Integer reportsTo;
 
     @Column(name = "job_title")
     private String jobTitle;
