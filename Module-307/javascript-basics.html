@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+       
+        //the language is read top to bottom
+
+        //BEST PRACTICE is to always use let when defining variables and 
+        //only use var when you know you need it globally available for the document.
+        //have to have a reason why you think it should be global
+
+
+        //var beacomes a global variable accessible by any function  in the document
+
+        var a = 10;
+        var b = "String";
+        var c = true;
+
+        //here y has not yet been defined so lets try to log it out
+        let x= 15;
+        function abc(){
+        //let scopes this variable to the containing{}
+        let x = 10;
+        var y = 20;
+         x = 40;
+        console.log(b);
+        console.log(y);
+        console.log(x);
+        }
+        console.log(x);
+
+        // x is not available here beacuse it is confined inside the function 
+        //y is available here because it was defined as a var which is global scope to the dicument
+        abc();
+        // console.log(y); this threw error
+
+        //this is similar to System.out.println("") and writes to the console on the brwoser inspect
+        console.log("hello world");
+
+        // compares the values and not the type
+        let e1 = 3 == 3; //isEqual is true
+        let e2 = 3 == "3"; // isEqual is true
+        let e3 = "3" == "3"; // isEqual is true
+
+
+        // === compares the value and the type
+
+        let e4 = "3" === 3; // e4 is false because === compares the type
+        let e5 = 3 === 3; //e4 is true because === compares the type
+
+        //common gotcha in js
+        // when using + if one of your variables is a string 
+        //then it will do string concatenation rather than arithmetic
+        let o = "8";
+        console.log(o + 8);
+        console.log("8" + 8);
+        console.log("8"+"8");
+        console.log(8 + 8);
+        console.log(8 + "8");
+
+        //function 
+        function xyz (arg1, arg2){
+            let n = 34 + arg1;
+            let n1 = 56;
+
+            return "some value";
+        }
+        var r = xyz(); // even if you don't pass any argument or just single argument instead of 2, it's okay !!!!
+
+        try{
+            xyz(1,2);
+            let x =10/0;
+        }catch(error){
+            console.log("Logging customer error: ")
+            console.log(e);
+        }
+
+        //javascript value object can be much simpler than a java entity
+        const person = {
+            firstName : "John",
+            lastName : "Doe",
+            age: 50, 
+            eyeColor: "blue",
+        };
+
+        //using for ...in  on person 
+        //it looks over the keys not the values
+        for (let key in person){
+            console.log(key +" == " + person[key])
+        };
+
+    
+        // there are many different ways of accessing the properties of person
+        console.log(person.firstName);
+        console.log(person["firstName"]);
+
+        person.height = "59";
+
+        let key = "height";
+
+        console.log(person.height);
+        console.log(person["height"]);
+        console.log(person[key]);
+
+        //arrays in javascript are much more flexible
+        let arr = [];
+        arr[1] = 3;
+        arr[10] = 4;
+        arr[7] = null ;
+
+        console.log(arr);
+
+        //multi-dimensional arrays : arrays within array
+
+        const objArray = [{key1: "value1"}, {key2: "value2"}];
+
+        console.log(objArray[0]["key1"]);
+        console.log(objArray[0]);
+ 
+        //multi dimensional
+        const multiArray = [
+		[{ key1: "value1", key2: "value2" }, 
+		 { key1: "value3", key2: "value4" }],
+		[{ key1: "value5", key2: "value6" }, 
+		 { key1: "value7", key2: "value8" }]
+	];
+// ArrayName[array_index][internal_array_index][object_key]	
+	console.log(multiArray[1][0]["key2"]);	// value6
+
+
+        //split method
+
+        let data = "a, b, c, d, e";
+        let dataArr = data.split(",");
+        console.log(dataArr);
+
+        //using for .... of it loop over the vakues of the array 
+        // similar to a new style for loop in java to loop over list or array
+
+        for (let value of arr){
+            console.log(value);
+        };
+
+        //for each 
+        arr.forEach(element => {console.log("for each " + element)});
+
+        console.log("\n");
+
+        //join method
+        let d = [2, 3, 4, 5, 6];
+        let y = d.join("");
+        console.log(y);
+        
+
+        //pop, push, shift methods
+        const k = [];			// an empty array
+	    k.push(3);				// a = [3]
+	    k.push(4, 5, 6);
+        console.log(k);
+        k.pop();
+        console.log(k);
+        k.shift();
+        console.log(k);
+
+        //slice method
+        k.push(7,8,9);
+        console.log(k);
+        let g = k.slice(1, -1);
+        console.log(g);
+
+
+    </script>
+
+    <h1>JAVASCRIPT basics</h1>
+    
+</body>
+</html>

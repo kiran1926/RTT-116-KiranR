@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="header"> This is the header</h1>
+    <p id="para">This is a paragraph with some text</p>
+    First Name
+    <input id = "firstname" name ="firstname" type="text">
+    <input id = "firstname1" name ="firstname" type="text">
+    <p>This is a second paragraph</p>
+    <p class="cssClassName">This is a third paragraph</p>
+    <span class="cssClassName"> This is a span</span>
+    <!-- this is for Trees of nodes slide 19-->
+    <ul>
+        <li>child1</li>
+        <li>child2</li>
+    </ul>
+
+    <script>
+        //most of the time we want to wait to run the js on document ready
+        let h = document.getElementById("header");
+        // This uses a css query selector to get the elements and will return a list of elements
+        let h1 = document.querySelector('#header');
+        console.log(h);
+        //to remove things manually in script
+        //h.remove();
+
+        //most used and most important to know and understand 
+        // this can be thought about similar to a primary key in the database
+        let p = document.getElementById("para");
+        console.log(p);
+        //this will print out in the console what was actually typed in the html
+        console.log(p.innerText);
+        //this will only change the cintent within the tag
+        p.innerText = "Some new text assigned via JavaScript";
+        //this one will replace the content with HTML + content
+        p.innerHTML= "<b><i>some other new html</i></b>"
+
+
+        //css classes are always expressed as .classname whcih is why you are seeing that in the console
+        //debugger in chrome
+        //thi is used second most
+        let c = document.getElementsByClassName("cssClassName");
+        let c1 = document.querySelector(".cssClassName");
+        console.log(c);
+
+
+        // thiese 2 are used but not very often
+        //input #firstname and input #firstname
+        // # means id 
+        let f=document.getElementsByName("firstname");
+        let e1 = document.querySelectorAll("[name='firstname']");
+        console.log(e1);
+
+        // this is the HTML tag name passed in
+        let n = document.getElementsByTagName("p");
+        let p1 = document.querySelector('p');
+        console.log(n);
+        let s = document.getElementsByTagName("span");
+        console.log(s);
+
+        //css query select for all p tags amd all  span tags
+        let cs = document.querySelector("p, span");
+    </script>
+
+    <style>
+        p, span {
+            background-color: lightpink;
+        }
+        #header{
+            background-color: cadetblue;
+        }
+    </style>
+    
+</body>
+</html>

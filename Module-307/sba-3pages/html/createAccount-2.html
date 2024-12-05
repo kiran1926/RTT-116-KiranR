@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!--for external styling-->
+    <link rel="stylesheet" href="/sba-3pages/css/external-2.css">
+
+    <!--Font import-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Londrina+Shadow&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<!--internal styling css -->
+<style>
+    .form-content{
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 7px;
+        line-height: 2;
+        font-family: "Quicksand", sans-serif;
+        font-weight: 500;
+        margin: 60px auto;
+        font-size: medium;
+        height: 520px;
+        width: 600px;
+    }
+    
+    table{
+        width: 100%;
+        border-collapse: collapse;
+        
+    }
+    th{
+        padding-top: 18px;
+        padding-bottom: 18px;
+        background-color: #711A4E;
+        border-radius: 7px 7px 0 0;
+        color: beige;
+        font-size:larger;
+        text-align: center;
+    }
+
+
+    input[type="text"]{
+        height:35px;
+        border-radius: 7px;
+        font-size: medium;
+        border: 2px solid; 
+        border-radius:7px; 
+        border-color: lightgrey;
+        padding: 3px;
+        padding-left: 10px;
+        width: 220px;
+    }
+    input[type="radio"]{
+        padding-right: 40px;
+    }
+
+    .button-1{
+        display: block;
+        align-self: center;
+        width:500px;
+        height: 40px;
+        padding-left: 20px 50px 20px 50px;
+        border: 2px solid; 
+        border-radius:7px; 
+        border-color: #711A4E;
+        background-color: #711A4E;
+        color: beige;
+        font-size: large;
+    }
+    button:hover{
+        background-color: #961362;
+    }
+    input[type="radio"]{
+        	accent-color:#961362;
+    }   
+    input[type="text"]:focus{
+            border: 1px;
+        	border-color: #961362;
+            outline: 2px ridge #961362 ;
+            
+    }  
+
+
+</style>
+
+
+<body background="https://images.pexels.com/photos/4252525/pexels-photo-4252525.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+    <div class="form-container">
+        <div class="form-content">
+            <form>
+                <table>
+                    <th colspan="2">Sign Up</th>
+
+                    <!--row 1 First Name-->
+                    <tr class="row1">
+                        <td class="first-name" style="padding-left: 30px; padding-top: 20px;">First Name *
+                            <br>
+                            <input type="text" placeholder="Enter first name" required>
+                        </td>
+                        <td class="last-name" style="padding-top: 20px;">Last Name *
+                            <br>
+                            <input type="text" placeholder="Enter last name" required>
+                        </td>
+                    </tr>
+
+                    <!--row 2 Email-->
+                    <tr>
+                        <td class="email" style="padding-left: 30px; padding-top: 10px;">Email *
+                            <br>
+                            <input type="text" placeholder="Enter your email" required>
+                        </td>
+                        <td class="phone-number" style="padding-top: 10px;">Phone Number *
+                            <br>
+                            <input type="text" placeholder="Enter your number" required>
+                        </td>
+                    </tr>
+
+                    <!--row 3  password -->
+                    <tr>
+                        <td class="password" style="padding-left: 30px; padding-top: 10px;">Password *
+                            <br>
+                            <input type="text" placeholder="Enter your password" required>
+                        </td>
+                        <td class="confirm-passsword" style="padding-top: 10px;">Confirm Password *
+                            <br>
+                            <input type="text" placeholder="Confirm your password" required>
+                        </td>
+                    </tr>
+
+                </table>
+                <!--for last two fields-->
+                <div style="padding-left: 30px; padding-top: 15px;" >
+                    <span >Gender *</span>
+                    <br>
+                    <input type="radio" id="male" name="gender" value="male"/>
+                            <label id="male" style="padding-right: 80px;">Male</label>
+                    <input type="radio" id="female" name="gender" value="female" />
+                            <label id="female" style="padding-right: 65px;">Female</label>
+                    <input type="radio" id="dont-prefer" name="gender" value="dont-prefer" />
+                            <label id="dont-prefer">Prefer not to say</label>
+                </div>
+                <div style="padding-left: 50px; padding-top: 20px;">
+                    <button class="button-1">Create My Account</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    
+</body>
+</html>

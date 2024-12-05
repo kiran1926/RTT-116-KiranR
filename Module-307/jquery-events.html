@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Jquery is always loaded at the top of the file-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Form Validation with JQuery</h1>
+
+    <button id ="b1" class="btnclass" attribute = "bt ">Button 1</button>
+    <button id = "b2" class="btnclass">Button 2</button>
+    
+</body>
+<script>
+    //JQuery use - on the left side inside the quotes is a css selector that can find 
+    // one or more elements and apply the function to all of them
+    $("#b1").click(function () {
+        console.log("The button 1 was clicked.");
+    });
+
+    //alternate syntax 
+    $("#b1").on('click', function(){
+        console.log("Click event btn1 through alternative syntax");
+    });
+
+    $("#b2").click(function () {
+        console.log("The button 2 was clicked.");
+    });
+
+
+
+    // when the mouse is over btn 1
+    $("#b1").on('mouseenter', function(){
+        console.log("mouse is over button1");
+        $("#b2").hide();
+    });
+
+    var bg = $("#b1").css("background-color");
+    //$(selector).css(propertyName);
+
+    $("#b1").on('mouseenter', function(){
+         $(this).css("background-color", "yellow");
+    });
+
+    //when the mouse is out of button 1
+    $("#b1").on('mouseout', function(){
+        console.log("mouse is exited button1");
+        $("#b1").css("background-color", bg);
+        $("#b2").show();
+    });
+
+    
+
+
+    //to target all buttons
+    $("button").click(function(){
+        console.log("All button listener was clicked.")
+    })
+    // or $(".btnclass").click(function(){
+    // console.log("jdhfkjds")
+   // })
+
+    // by pure javascript
+   let button = document.getElementById("b1");
+   button.addEventListener("click", function(){
+    console.log("button 1 was clicked by javascript");
+   });
+
+</script>
+</html>
