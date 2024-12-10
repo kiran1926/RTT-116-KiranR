@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Jquery is always loaded at the top of the file-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!--for external styling-->
     <link rel="stylesheet" href="/sba-3pages/css/external-2.css">
@@ -28,7 +30,7 @@
         font-weight: 500;
         margin: 60px auto;
         font-size: medium;
-        height: 520px;
+        padding-bottom: 22px;
         width: 600px;
     }
     
@@ -92,35 +94,137 @@
 
 </style>
 
+<script>
+    function submitFunction(event) {
+            console.log("Submit clicked");
+            console.log(event);
+            event.preventDefault();
+            // Validation for firstname
+            let fn = $("#firstname").val();
 
-<body background="https://images.pexels.com/photos/4252525/pexels-photo-4252525.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+            //function to validate no digits entered
+            function hasDigits(inputString) {
+                return /\d/.test(inputString);
+            };
+            if (fn == "") {
+                console.log("First name is required");
+                $("#fns").css("color", "red");
+                $("#firstname").css("border-color", "red");
+                $("#fnserror").text("First name is required");
+            } else {
+                if (hasDigits(fn)) {
+                    console.log("Only letters required");
+                    $("#fns").css("color", "red");
+                    $("#firstname").css("border-color", "red");
+                    $("#fnserror").text("First name can't contain numbers");
+                } else {
+                    console.log("user entered " + fn);
+                    $("#fns").css("color", "black");
+                    $("#firstname").css("border-color", "black");
+                    $("#fnserror").hide;
+                }
+            };
+
+             // !!!!!! ========= Last Name field added =========================
+             let ln = $("#lastname").val();
+            if (ln == "") {
+                $("#lns").css("color", "red");
+                $("#lastname").css("border-color", "red");
+                $("#lnserror").text("Last Name is required");
+                console.log("Last name is required");
+            } else {
+                if (hasDigits(ln)) {
+                    console.log("Only letters required");
+                    $("#lns").css("color", "red");
+                    $("#lastname").css("border-color", "red");
+                    $("#lnserror").text("Last name can't contain numbers");
+                } else {
+                    console.log("user entered " + fn);
+                    $("#lns").css("color", "black");
+                    $("#lastname").css("border-color", "black");
+                    $("#lnserror").hide;
+                }
+            };
+            // !!!! ============ Email validation with input required ===========
+            let em = $("#email").val();
+            if (em == "") {
+                console.log("Email is required");
+                $("#eml").css("color", "red");
+                $("#email").css("border-color", "red");
+                $("#emlerror").text("Email is required");
+            } else {
+                let pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+$/.test(em);
+                if (!pattern) {
+                    console.log("incorrect email pattern");
+                    $("#eml").css("color", "red");
+                    $("#email").css("border-color", "red");
+                    $("#emlerror").text("Please enter a valid email address!");
+                } else {
+                    console.log("user entered " + fn);
+                    $("#eml").css("color", "black");
+                    $("#email").css("border-color", "black");
+                    $("#emlerror").hide;
+                };
+            };
+
+            // =============== Loop for phonenumber to check only digits are entered ===================
+            
+            let ph = $("#phone-number").val;
+            let isValid = true;
+            for (let i = 0; i < ph.length; i++){
+                if( isNaN(ph[i]) || ph[i] === ''){
+                    isValid =false;
+                    console.log("not a digit")
+                    break;
+                };
+            };
+            if ( isValid && ph.length > 0){
+                $("#phno").css("color", "black");
+                $("#phone-number").css("border-color", "black");
+                $("#phnerror").hide;
+            }else {
+                $("#phno").css("color", "red");
+                $("#phone-number").css("border-color", "red");
+                $("#phnerror").text("Please enter only digits.");
+            };
+            
+    };
+
+</script>
+
+
+<body style="background-color: #CEC9C9">
     <div class="form-container">
         <div class="form-content">
-            <form>
+            <form onSubmit="submitFunction(event)">
                 <table>
                     <th colspan="2">Sign Up</th>
 
                     <!--row 1 First Name-->
                     <tr class="row1">
-                        <td class="first-name" style="padding-left: 30px; padding-top: 20px;">First Name *
+                        <td id="fns" class="first-name" style="padding-left: 30px; padding-top: 20px;">First Name <span>*</span> 
                             <br>
-                            <input type="text" placeholder="Enter first name" required>
+                            <input type="text" id="firstname" placeholder="Enter first name" >
+                            <div id="fnserror"></div>
                         </td>
-                        <td class="last-name" style="padding-top: 20px;">Last Name *
+                        <td id="lns" class="last-name" style="padding-top: 20px;">Last Name *
                             <br>
-                            <input type="text" placeholder="Enter last name" required>
+                            <input type="text" id="lastname" placeholder="Enter last name" >
+                            <div id="lnserror"></div>
                         </td>
                     </tr>
 
                     <!--row 2 Email-->
                     <tr>
-                        <td class="email" style="padding-left: 30px; padding-top: 10px;">Email *
+                        <td id="eml" class="email" style="padding-left: 30px; padding-top: 10px;">Email *
                             <br>
-                            <input type="text" placeholder="Enter your email" required>
+                            <input type="text" id="email" placeholder="Enter your email" >
+                            <div id="emlerror"></div>
                         </td>
-                        <td class="phone-number" style="padding-top: 10px;">Phone Number *
+                        <td class="phone-number" id="phno" style="padding-top: 10px;">Phone Number *
                             <br>
-                            <input type="text" placeholder="Enter your number" required>
+                            <input type="text" id="phone-number" placeholder="Enter your number" >
+                            <div id="phnerror"></div>
                         </td>
                     </tr>
 
@@ -128,11 +232,11 @@
                     <tr>
                         <td class="password" style="padding-left: 30px; padding-top: 10px;">Password *
                             <br>
-                            <input type="text" placeholder="Enter your password" required>
+                            <input type="text" placeholder="Enter your password" >
                         </td>
                         <td class="confirm-passsword" style="padding-top: 10px;">Confirm Password *
                             <br>
-                            <input type="text" placeholder="Confirm your password" required>
+                            <input type="text" placeholder="Confirm your password">
                         </td>
                     </tr>
 
@@ -149,12 +253,21 @@
                             <label id="dont-prefer">Prefer not to say</label>
                 </div>
                 <div style="padding-left: 50px; padding-top: 20px;">
-                    <button class="button-1">Create My Account</button>
+                    <button type="submit" class="button-1">Create My Account</button>
                 </div>
             </form>
         </div>
 
     </div>
+<script>
+    $("form").on("submit", function () {
+            console.log("submit clicked");
+            console.log("--------- here---------");
+        });
+        $("#firstname").on('focus', function () {
+            console.log("firstname is focused");
+        });
+</script>    
     
 </body>
 </html>

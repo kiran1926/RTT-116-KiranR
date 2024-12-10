@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!-- Jquery is always loaded at the top of the file-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!--External JS-->
+    <script type="text/javascript" src="../js/js-1.js"></script>
+
     <!--styling external-->
     <link rel="stylesheet" href="/sba-3pages/css/external-1.css">
 
@@ -25,7 +32,7 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         text-align: left;
         line-height: 2;
-        height: 500px;
+        /*height: 500px;*/
         width: 400px;
         border-radius: 7px;
         margin: 60px auto;
@@ -80,32 +87,32 @@
 
 </style>
 
-<body
-    background="https://images.pexels.com/photos/4252525/pexels-photo-4252525.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+<body style="background-color: #CEC9C9">
     <div class="form-container">
 
         <div class="form-col">
-            <form class="form form-box login-form">
+            <form onSubmit="submitFunction(event)" class="form form-box login-form" id="form">
                 <!--title of form-->
                 <div class="form-title">
                     <span style="font-size: 25px">Log In</span>
                 </div>
                 <!--Input box for email or username-->
                 <div class="form-content">
-                    <div class="username">
+                    <div class="username" id="eml">
                         <span>Email *</span>
                     </div>
                     <div class="input-box">
-                        <input type="text" class="input-field" placeholder="Your Email *" required
+                        <input type="text" class="input-field" placeholder="Your Email *" id="email"
                             style="padding: 11px; width:300px; font-size: medium; border:1px solid; border-radius:7px; border-color: lightgrey;">
                         <ion-icon name="person-circle-outline" class="icon"></ion-icon>
                     </div>
+                    <div id="emlerror"></div>
                     <!--Input box for password-->
-                    <div class="password" style="padding-top: 10px;">
+                    <div class="password" id="pwd" style="padding-top: 10px;">
                         <span>Password *</span>
                     </div>
                     <div class="input-box">
-                        <input type="text" class="input-field" placeholder="Your Password *" required
+                        <input type="text" class="input-field" id="password" placeholder="Your Password *" 
                             style="padding: 11px; width:300px; font-size: medium; border:1px solid; border-radius:7px; border-color: lightgrey">
                         <ion-icon name="lock-closed-outline" class="icon"></ion-icon>
                     </div>
@@ -123,7 +130,7 @@
                     </div>
                     <!--login button-->
                     <div class="button-1">
-                        <button class="bttn-login" style="font-size: 16px;">
+                        <button id="login" type="submit" class="bttn-login" style="font-size: 16px;">
                             Log In
                         </button>
                     </div>
@@ -132,7 +139,7 @@
                         <span style="font-size: 15px; text-decoration: underline; text-decoration-color: rgb(157, 153, 153);">Don't have an account?</span>
                         <br>
                         <!--TODO !!!!!! add link here later-->
-                        <span style="font-size: large; color: #711A4E; font-weight: 600;">SIGN UP</span>
+                        <a class="nav-link active" aria-current="page" href="http://127.0.0.1:5500/sba-3pages/html/createAccount-2.html" style="font-size: large; color: #711A4E; font-weight: 600;">SIGN UP</a>
                     </div>
                 </div>
             </form>
