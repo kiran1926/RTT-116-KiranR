@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Jquery is always loaded at the top of the file-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<script>
+    //when run without the document ready, this does nothing because 
+    // #header has not yet been created in the dom tree
+    //if we add back the document ready, then it waits to run after the browser
+    // has finished loading all elements and will actually turn the h1 read
+
+
+    //$(document).ready(function(){
+        $("#header").css("color", "red");
+        console.log("added color red");
+    //});
+</script>
+
+<script>
+    // !!!!!! When we are using an event listener for a button or form submission 
+    //or any kind of event listener we do not need to worry about the onload
+    // problem because the event (like a button click ) can only happen after the 
+    // Document is loaded anyway
+    //DOMContentLoaded is the event 
+
+    //in some ways this is behaving like an event listener because
+    // when the browser has finished processing all of the CSS and HTML
+    // it will throw an event that saying the browser is done processing all the  HTML and CSS
+
+    $(document).ready(function () {
+       console.log("This prints after because it only runs when the document is ready");
+    });
+
+
+    //pure javascript way
+    
+
+
+</script>
+
+<body>
+    <h1 id ="header">On Load Demo</h1>
+
+</body>
+<script>
+    console.log("runs before document is ready");
+</script>
+
+</html>
