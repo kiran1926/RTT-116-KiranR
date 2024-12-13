@@ -1,15 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Kiran
-  Date: 12/10/24
-  Time: 11:48 AM
-  To change this template use File | Settings | File Templates.
---%>
-<%-- JSTL library addition to JSP --%>
+
 <%@ taglib  uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<jsp:include page="include/header.jsp"/>
 
 <!DOCTYPE html>
 <html lang="en">
