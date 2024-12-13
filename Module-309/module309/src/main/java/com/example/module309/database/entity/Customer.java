@@ -12,7 +12,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-
 public class Customer {
 
     // To add a one to many relationship steps
@@ -90,4 +89,5 @@ public class Customer {
     public int hashCode() {
         return Objects.hash(id, salesRepEmployeeId, customerName, contactLastname, contactFirstname, phone, addressLine1, addressLine2, city, state, postalCode, country, creditLimit);
     }
+
 }
