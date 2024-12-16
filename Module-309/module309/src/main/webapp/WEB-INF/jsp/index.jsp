@@ -40,6 +40,4 @@ Item <c:out value = "${i}"/><p>
 </table>
 
 
-</body>
-
-</html>
+<jsp:include page="include/footer.jsp"/>
