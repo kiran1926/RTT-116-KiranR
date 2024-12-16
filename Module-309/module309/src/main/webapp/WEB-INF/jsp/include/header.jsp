@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>Title</title>
+    <link href="/pub/css/global.css" rel="stylesheet">
     <!-- these 2 lines are needed tp bring in bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -21,7 +22,7 @@
 
 <%-- Work on Header from bootstrap--%>
 <section>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light1">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,6 +35,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/customer/search">Customer Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/employee/search">Employee Search</a>
                     </li>
                 </ul>
             </div>

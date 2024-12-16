@@ -122,7 +122,7 @@ public class Employee {
         this.email = email;
     }
 
-    public int getReportsTo() {
+    public Integer getReportsTo() {
         return reportsTo;
     }
 
