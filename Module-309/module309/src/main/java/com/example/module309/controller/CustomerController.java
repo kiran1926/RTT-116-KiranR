@@ -40,7 +40,7 @@ public class CustomerController {
     public ModelAndView createCustomer(){
         ModelAndView response = new ModelAndView();
 
-        response.setViewName("customer/create");
+        response.setViewName("customer/createCustomer");
 
         return response;
     }
