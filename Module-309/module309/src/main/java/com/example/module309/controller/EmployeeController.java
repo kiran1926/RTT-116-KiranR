@@ -17,7 +17,7 @@ public class EmployeeController {
     private EmployeeDAO employeeDAO;
 
     @GetMapping("/employee/search")
-    public ModelAndView search(@RequestParam(required = false) String firstName){
+    public ModelAndView searchEmployee(@RequestParam(required = false) String firstName){
         ModelAndView response = new ModelAndView();
         response.setViewName("employee/searchEmp");
 

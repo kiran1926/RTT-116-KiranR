@@ -31,7 +31,7 @@
 <c:if test="${ not empty search}">
     <section class="bg-light2 pb-4 pt-4">
         <div class="container">
-            <h1 class="text-center">Employees Found(${employeesKey.size()})</h1>
+            <h3 class="text-center">Employees Found(${employeesKey.size()})</h3>
 
             <table class="table table-striped table-hover mt-5">
                 <tr>

@@ -17,7 +17,7 @@ public class CustomerController {
     private CustomerDAO customerDAO;
 
     @GetMapping("/customer/search")
-    public ModelAndView search(@RequestParam(required = false) String firstName) {
+    public ModelAndView searchCustomer(@RequestParam(required = false) String firstName) {
         ModelAndView response = new ModelAndView();
 
         //this is essentially translating /WEB-INF/jsp/customer/search.jsp
@@ -34,5 +34,14 @@ public class CustomerController {
         System.out.println("===here===");
         return response;
 
+    }
+
+    @GetMapping("/customer/create")
+    public ModelAndView createCustomer(){
+        ModelAndView response = new ModelAndView();
+
+        response.setViewName("customer/create");
+
+        return response;
     }
 }

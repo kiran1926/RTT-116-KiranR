@@ -6,7 +6,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link href="/pub/css/global.css" rel="stylesheet">
+
     <!-- these 2 lines are needed tp bring in bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -14,11 +14,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
+    <!-- for loading global css -->
+    <link href="/pub/css/global.css" rel="stylesheet">
     <!-- jquery is always loaded at the top of the file because its needed by so many other libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
-<body>
+<body class="bg-light2">
 
 <%-- Work on Header from bootstrap--%>
 <section>
@@ -35,6 +37,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/customer/search">Customer Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/customer/create">Create Customer</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/employee/search">Employee Search</a>
