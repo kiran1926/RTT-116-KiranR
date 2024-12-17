@@ -21,7 +21,7 @@ public class Employee {
     private List<Customer> customers;
 
     @Column(name = "office_id")
-    private int officeId;
+    private Integer officeId;
 
     @Column(name = "firstname")
     private String firstname;
@@ -42,7 +42,7 @@ public class Employee {
     private String jobTitle;
 
     @Column(name = "vacation_hours")
-    private int vacationHours;
+    private Integer vacationHours;
 
     @Column(name = "profile_image_url")
     private String profileImageUrl;
@@ -53,7 +53,7 @@ public class Employee {
     }
 
     // constructor main
-    public Employee(int id, int officeId, String lastname, String firstname, String extension, String email, int reportsTo, String jobTitle, String profileImageUrl, int vacationHours) {
+    public Employee(Integer id, Integer officeId, String lastname, String firstname, String extension, String email, Integer reportsTo, String jobTitle, String profileImageUrl, Integer vacationHours) {
         this.id = id;
         this.officeId = officeId;
         this.lastname = lastname;
@@ -82,7 +82,7 @@ public class Employee {
         this.id = id;
     }
 
-    public int getOfficeId() {
+    public Integer getOfficeId() {
         return officeId;
     }
 
@@ -138,7 +138,7 @@ public class Employee {
         this.jobTitle = jobTitle;
     }
 
-    public int getVacationHours() {
+    public Integer getVacationHours() {
         return vacationHours;
     }
 
