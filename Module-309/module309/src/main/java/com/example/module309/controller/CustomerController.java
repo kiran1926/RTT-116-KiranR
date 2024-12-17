@@ -1,7 +1,14 @@
 package com.example.module309.controller;
 
 import com.example.module309.database.dao.CustomerDAO;
+import com.example.module309.database.dao.EmployeeDAO;
 import com.example.module309.database.entity.Customer;
+import com.example.module309.database.entity.Employee;
+import com.example.module309.form.CreateCustomerFormBean;
+import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,12 +16,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+// serverity of the error message increases going down
+// as developers 90% of the time we are going to use DEBUG
+// TRACE   -- this is very low level and not often used by us .. more for creators of libraries
+// DEBUG   -- this is what we use most of the time when we wnat to print out stuff that helps us build
+// INFO    -- this is for information that is important like the messages that spring prints when it starts up
+// WARN    -- this is a potential problem or something of note but it is not an error
+// ERROR   -- this is for errors like making an api call that failed OR if an exception is thrown
 
+
+// slf4j is not an implementation of logging it is a specification
+// most if not all other logging libraries have come to use this specification for their implementation
+// log4j was the most commonly used logging library for a long time and you will probably encounter it
+//@Slf4j  <-  this is from lombok and all it does is line 40
 @Controller
 public class CustomerController {
 
+
+    // this is the old style logging before lombok and there is a very good chance you will see this in code somewhere
+    // lombok is preferred
+
+    private static final Logger LOG = LoggerFactory.getLogger(CustomerController.class);
+
+
     @Autowired
     private CustomerDAO customerDAO;
+    @Autowired
+    private EmployeeDAO employeeDAO;
 
     @GetMapping("/customer/search")
     public ModelAndView searchCustomer(@RequestParam(required = false) String firstName) {
@@ -38,9 +66,44 @@ public class CustomerController {
 
     @GetMapping("/customer/create")
     public ModelAndView createCustomer(){
+        //this just shows us create page for the first time when the user goes to the page
+        ModelAndView response = new ModelAndView();
+
+        LOG.debug("DEBUG LEVEL");
+        LOG.info("INFO LEVEL");
+        LOG.warn("WARNING LEVEL");
+        LOG.error("ERROR LEVEL");
+
+        response.setViewName("customer/createCustomer");
+
+        return response;
+    }
+
+    @GetMapping("/customer/create-customer")
+    public ModelAndView createCustomerSubmit(CreateCustomerFormBean form){
+        //this just shows us create page for the first time when the user goes to the page
         ModelAndView response = new ModelAndView();
 
         response.setViewName("customer/createCustomer");
+
+        System.out.println(form); //forbidden
+        LOG.debug(form.toString());
+
+        Customer customer=new Customer();
+
+        customer.setCustomerName(form.getCompanyName());
+        customer.setContactFirstname(form.getFirstName());
+        customer.setContactLastname(form.getLastName());
+        customer.setPhone(form.getPhone());
+        customer.setAddressLine1(form.getAddressLine1());
+        customer.setCity(form.getCity());
+        customer.setCountry(form.getCountry());
+
+        //set employee
+        Employee employee = employeeDAO.findById(1002);
+        customer.setEmployee(employee);
+
+        customerDAO.save(customer);
 
         return response;
     }
