@@ -49,6 +49,7 @@ public class EmployeeController {
         employee.setLastname(form.getLastName());
         employee.setEmail(form.getEmail());
         employee.setJobTitle(form.getJobTitle());
+        employee.setExtension(form.getExtension());
 
         employeeDAO.save(employee);
 

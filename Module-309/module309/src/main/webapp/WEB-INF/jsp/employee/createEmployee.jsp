@@ -35,7 +35,7 @@
             <div class="mb-3 row justify-content-center">
                 <label for="jobTitleId" class="col-sm-2 col-form-label">Job Title</label>
                 <div class="col-sm-10 col-lg-6">
-                    <input type="text" class="form-control" id="jobTitleId" name="jobTitleId" value="">
+                    <input type="text" class="form-control" id="jobTitleId" name="jobTitle" value="">
                 </div>
             </div>
             <div class="mb-3 row justify-content-center">

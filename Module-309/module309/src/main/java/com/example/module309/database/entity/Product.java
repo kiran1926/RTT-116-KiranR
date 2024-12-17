@@ -7,12 +7,12 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "products")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "products")
 public class Product {
 
     @Id

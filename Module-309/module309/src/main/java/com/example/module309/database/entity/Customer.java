@@ -6,12 +6,12 @@ import lombok.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "customers")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "customers")
 public class Customer {
 
     // To add a one to many relationship steps

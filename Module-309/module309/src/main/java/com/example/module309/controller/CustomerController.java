@@ -5,12 +5,15 @@ import com.example.module309.database.dao.EmployeeDAO;
 import com.example.module309.database.entity.Customer;
 import com.example.module309.database.entity.Employee;
 import com.example.module309.form.CreateCustomerFormBean;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,7 +22,7 @@ import java.util.List;
 // serverity of the error message increases going down
 // as developers 90% of the time we are going to use DEBUG
 // TRACE   -- this is very low level and not often used by us .. more for creators of libraries
-// DEBUG   -- this is what we use most of the time when we wnat to print out stuff that helps us build
+// DEBUG   -- this is what we use most of the time when we want to print out stuff that helps us build
 // INFO    -- this is for information that is important like the messages that spring prints when it starts up
 // WARN    -- this is a potential problem or something of note but it is not an error
 // ERROR   -- this is for errors like making an api call that failed OR if an exception is thrown
@@ -59,7 +62,6 @@ public class CustomerController {
             response.addObject("customersKey", customers);
         }
 
-        System.out.println("===here===");
         return response;
 
     }
@@ -80,31 +82,43 @@ public class CustomerController {
     }
 
     @GetMapping("/customer/create-customer")
-    public ModelAndView createCustomerSubmit(CreateCustomerFormBean form){
+    public ModelAndView createCustomerSubmit(@Valid CreateCustomerFormBean form, BindingResult bindingResult){
         //this just shows us create page for the first time when the user goes to the page
         ModelAndView response = new ModelAndView();
 
         response.setViewName("customer/createCustomer");
 
-        System.out.println(form); //forbidden
+        //manually do some validations here in the controller can use Stringutils library ERIc showed in series reminder
+        //if(StringUtils.isEmpty(slug){
+        //response.setViewName("")}
+
+        //System.out.println(form); //forbidden
         LOG.debug(form.toString());
 
-        Customer customer=new Customer();
+        if ( bindingResult.hasErrors()) {
+            for (ObjectError error : bindingResult.getAllErrors()) {
+                LOG.debug(error.toString());
+            }
+            response.addObject("bindingResult", bindingResult);
+            response.addObject("form", form);
+        }else {
 
-        customer.setCustomerName(form.getCompanyName());
-        customer.setContactFirstname(form.getFirstName());
-        customer.setContactLastname(form.getLastName());
-        customer.setPhone(form.getPhone());
-        customer.setAddressLine1(form.getAddressLine1());
-        customer.setCity(form.getCity());
-        customer.setCountry(form.getCountry());
+            Customer customer = new Customer();
 
-        //set employee
-        Employee employee = employeeDAO.findById(1002);
-        customer.setEmployee(employee);
+            customer.setCustomerName(form.getCompanyName());
+            customer.setContactFirstname(form.getFirstName());
+            customer.setContactLastname(form.getLastName());
+            customer.setPhone(form.getPhone());
+            customer.setAddressLine1(form.getAddressLine1());
+            customer.setCity(form.getCity());
+            customer.setCountry(form.getCountry());
 
-        customerDAO.save(customer);
+            //set employee
+            Employee employee = employeeDAO.findById(1002);
+            customer.setEmployee(employee);
 
+            customerDAO.save(customer);
+        }
         return response;
     }
 }
