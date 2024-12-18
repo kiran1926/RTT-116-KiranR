@@ -72,6 +72,10 @@ public class CustomerController {
         //this just shows us create page for the first time when the user goes to the page
         ModelAndView response = new ModelAndView();
 
+        //doing this for employee dropdown on customer
+        List<Employee> employees = employeeDAO.findAllEmployees(); // or without writing native query - List<Employee> employees = employeeDAO.findAll();
+        response.addObject("employeesKey", employees);
+
         LOG.debug("DEBUG LEVEL");
         LOG.info("INFO LEVEL");
         LOG.warn("WARNING LEVEL");
@@ -104,6 +108,9 @@ public class CustomerController {
         form.setCountry(customer.getCountry());
 
         response.addObject("form", form);
+        //priming this for employee dropdown on edit page
+        List<Employee> employees = employeeDAO.findAllEmployees();
+        response.addObject("employeesKey", employees);
         return response;
     }
 
@@ -128,6 +135,9 @@ public class CustomerController {
             response.setViewName("customer/createCustomer");
             response.addObject("bindingResult", bindingResult);
             response.addObject("form", form);
+
+            List<Employee> employees = employeeDAO.findAllEmployees();
+            response.addObject("employeesKey", employees);
         }else {
             //when this is a create the id in the form will be null
             // when it is an edit the id in the form will be populated with the PK to edit
@@ -146,8 +156,10 @@ public class CustomerController {
             customer.setCity(form.getCity());
             customer.setCountry(form.getCountry());
 
-            //set employee
-            Employee employee = employeeDAO.findById(1002);
+
+
+            //priming this for employee dropdown for after going to error
+            Employee employee = employeeDAO.findById(form.getEmployeeId());
             customer.setEmployee(employee);
 
             customerDAO.save(customer);

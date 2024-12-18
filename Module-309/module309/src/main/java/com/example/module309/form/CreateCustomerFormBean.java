@@ -49,4 +49,6 @@ public class CreateCustomerFormBean {
     @Size(max = 50, message = "Country Name must be less than 50 characters")
     private String country;
 
+    private Integer employeeId;
+
 }
