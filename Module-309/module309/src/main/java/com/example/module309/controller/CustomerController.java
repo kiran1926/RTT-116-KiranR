@@ -106,6 +106,9 @@ public class CustomerController {
         form.setPhone(customer.getPhone());
         form.setCity(customer.getCity());
         form.setCountry(customer.getCountry());
+        form.setEmployeeId(customer.getSalesRepEmployeeId()); // added this to reflect in dropdown the existing employee for that customer
+        //alternate way
+
 
         response.addObject("form", form);
         //priming this for employee dropdown on edit page
