@@ -12,13 +12,15 @@ import lombok.ToString;
 @ToString
 public class CreateCustomerFormBean {
 
+    private Integer id;  //this is added for capturing id from search page to use it in edit page
+
     // THIS IS CALLED A POJO - plain Old Java Object
 
     //this object is called a FormBean
     // this is analogous to a DTO data transfer Object
     // this is NEVER EVER an entity
 
-    @Pattern(regexp = "[A-Za-z0-9\\s]+",message = "Company Name must contain only numbers, letter, and spaces.")
+    @Pattern(regexp = "[A-Za-z0-9\\s]+", message = "Company Name must contain only numbers, letter, and spaces.")
     @NotEmpty(message = "Company name is required.")
     @Size(min = 2, max = 50, message = "Company Name must be between 2 and 50 characters")
     private String companyName;

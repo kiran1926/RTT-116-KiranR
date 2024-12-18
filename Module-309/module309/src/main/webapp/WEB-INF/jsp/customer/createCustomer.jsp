@@ -18,6 +18,7 @@
 <section class="bg-light1 pt-5 pb-5">
     <div class="container">
         <form action="/customer/create-customer">
+            <input type="hidden" name="id" value="${form.id}"/>
             <div class="mt-3 row justify-content-center">
                 <label for="companyNameId" class="col-sm-2 col-form-label">Company Name</label>
                 <div class="col-sm-10 col-lg-6">

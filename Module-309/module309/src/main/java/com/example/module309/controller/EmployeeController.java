@@ -1,7 +1,9 @@
 package com.example.module309.controller;
 
 import com.example.module309.database.dao.EmployeeDAO;
+import com.example.module309.database.dao.OfficeDAO;
 import com.example.module309.database.entity.Employee;
+import com.example.module309.database.entity.Office;
 import com.example.module309.form.CreateEmployeeFormBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeDAO employeeDAO;
+
+    @Autowired
+    private OfficeDAO officeDAO;
 
     @GetMapping("/employee/search")
     public ModelAndView searchEmployee(@RequestParam(required = false) String firstName){
@@ -50,6 +55,7 @@ public class EmployeeController {
         employee.setEmail(form.getEmail());
         employee.setJobTitle(form.getJobTitle());
         employee.setExtension(form.getExtension());
+
 
         employeeDAO.save(employee);
 

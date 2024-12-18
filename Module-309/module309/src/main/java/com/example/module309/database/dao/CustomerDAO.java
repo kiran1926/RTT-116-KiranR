@@ -13,4 +13,7 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
 
     List<Customer>findByContactLastname(String lastName);
 
+    //adding this for editing customer
+    Customer findById (Integer id);
+
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -81,6 +82,31 @@ public class CustomerController {
         return response;
     }
 
+    @GetMapping("/customer/edit/{customerId}")
+    public  ModelAndView editCustomer(@PathVariable Integer customerId) {
+        ModelAndView response = new ModelAndView();
+        //this is the page primer for edit
+        response.setViewName("customer/createCustomer");
+
+        LOG.debug("======== EDITING CUSTOMER "+ customerId);
+
+        Customer customer = customerDAO.findById(customerId);
+
+        CreateCustomerFormBean form = new CreateCustomerFormBean();
+
+        form.setId(customer.getId());
+        form.setCompanyName(customer.getCustomerName());
+        form.setFirstName(customer.getContactFirstname());
+        form.setLastName(customer.getContactLastname());
+        form.setAddressLine1(customer.getAddressLine1());
+        form.setPhone(customer.getPhone());
+        form.setCity(customer.getCity());
+        form.setCountry(customer.getCountry());
+
+        response.addObject("form", form);
+        return response;
+    }
+
     @GetMapping("/customer/create-customer")
     public ModelAndView createCustomerSubmit(@Valid CreateCustomerFormBean form, BindingResult bindingResult){
         //this just shows us create page for the first time when the user goes to the page
@@ -99,12 +125,19 @@ public class CustomerController {
             for (ObjectError error : bindingResult.getAllErrors()) {
                 LOG.debug(error.toString());
             }
+            response.setViewName("customer/createCustomer");
             response.addObject("bindingResult", bindingResult);
             response.addObject("form", form);
         }else {
-
-            Customer customer = new Customer();
-
+            //when this is a create the id in the form will be null
+            // when it is an edit the id in the form will be populated with the PK to edit
+            // in either case we can try to query the database and its either found or not
+            // if it's not found in the database it's a create
+            // if it is found in the database then it's an edit
+            Customer customer =customerDAO.findById(form.getId());
+            if(customer == null) {
+                 customer = new Customer();
+            }
             customer.setCustomerName(form.getCompanyName());
             customer.setContactFirstname(form.getFirstName());
             customer.setContactLastname(form.getLastName());
@@ -118,7 +151,14 @@ public class CustomerController {
             customer.setEmployee(employee);
 
             customerDAO.save(customer);
+
+            LOG.debug("======== SAVING CUSTOMER "+ customer.getId());
+
+            //in either case .... create or edit ... I now want to redirect to the edit url
+            response.setViewName("redirect:/customer/edit/" +customer.getId() + "?success=true");
         }
         return response;
     }
+
+
 }
