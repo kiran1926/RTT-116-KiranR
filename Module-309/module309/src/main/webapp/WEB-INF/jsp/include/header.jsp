@@ -1,7 +1,10 @@
 <%-- JSTL --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
 
 <html>
 <head>
@@ -45,8 +48,23 @@
                         <a class="nav-link" href="/employee/search">Employee Search</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/customer/create">Create Employee</a>
+                        <a class="nav-link" href="/employee/create">Create Employee</a>
                     </li>
+                    <sec:authorize access="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login/login">Login</a>
+                    </li>
+                    </sec:authorize>
+                    <sec:authorize access="isAuthenticated()">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login/logout">Logout</a>
+                    </li>
+                    </sec:authorize>
+                    <sec:authorize access="hasAnyAuthority('ADMIN')">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Admin Only</a>
+                        </li>
+                    </sec:authorize>
                 </ul>
             </div>
         </div>

@@ -49,7 +49,7 @@
                         <td>${employee.id}</td>
                         <td>${employee.jobTitle}</td>
                         <td>${employee.reportsTo}</td>
-                        <td><a href="/employee/search/${employee.id}">Edit</a></td>
+                        <td><a href="/employee/edit/${employee.id}">Edit</a></td>
                     </tr>
                 </c:forEach>
             </table>
