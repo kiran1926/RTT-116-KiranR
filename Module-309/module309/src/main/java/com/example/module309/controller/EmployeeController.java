@@ -32,6 +32,7 @@ public class EmployeeController {
     @GetMapping("/employee/search")
     public ModelAndView searchEmployee(@RequestParam(required = false) String firstName){
         ModelAndView response = new ModelAndView();
+        //this is essentially translating /WEB-INF/jsp/employee/searchEmp.jsp
         response.setViewName("employee/searchEmp");
 
         response.addObject("search", firstName);
@@ -47,6 +48,12 @@ public class EmployeeController {
         ModelAndView response = new ModelAndView();
         response.setViewName("employee/createEmployee");
 
+        //doing this for office dropdown on customer
+        List<Office> offices = officeDAO.findAllOffices(); // or without writing native query - List<Employee> employees = employeeDAO.findAll();
+        response.addObject("officesKey", offices);
+
+        response.setViewName("employee/createEmployee");
+
         return response;
     }
 
@@ -56,14 +63,15 @@ public class EmployeeController {
         ModelAndView response = new ModelAndView();
 
         //this is the page primer for edit
-        response.setViewName("customer/createEmployee");
+        response.setViewName("employee/createEmployee");
 
-        log.debug("======== EDITING CUSTOMER "+ employeeId);
+        log.debug("======== EDITING Employee "+ employeeId);
 
         Employee employee = employeeDAO.findById(employeeId);
 
         CreateEmployeeFormBean form = new CreateEmployeeFormBean();
 
+        form.setId(employee.getId());
         form.setFirstName(employee.getFirstname());
         form.setLastName(employee.getLastname());
         form.setEmail(employee.getEmail());
@@ -72,6 +80,12 @@ public class EmployeeController {
         form.setExtension(employee.getExtension());
         form.setVacationHours(employee.getVacationHours());
         form.setProfileImageUrl(employee.getProfileImageUrl());
+        form.setOfficeId(employee.getOfficeId());
+
+        response.addObject("form", form);
+        //priming this for office dropdown on edit page
+        List<Office> offices = officeDAO.findAllOffices();
+        response.addObject("officesKey", offices);
 
         return response;
     }
@@ -90,6 +104,9 @@ public class EmployeeController {
             response.setViewName("employee/createEmployee");
             response.addObject("bindingResult", bindingResult);
             response.addObject("form", form);
+
+            List<Office> offices = officeDAO.findAllOffices();
+            response.addObject("officesKey", offices);
         }else{
 
             Employee employee = employeeDAO.findById(form.getId());
@@ -105,12 +122,15 @@ public class EmployeeController {
             employee.setVacationHours(form.getVacationHours());
             employee.setProfileImageUrl(form.getProfileImageUrl());
 
+            //priming this for employee dropdown for after going to error
+            Office office = officeDAO.findById(form.getOfficeId());
+            employee.setOfficeId(office.getId());
 
             employeeDAO.save(employee);
             log.debug("======== SAVING CUSTOMER "+ employee.getId());
 
             //in either case .... create or edit ... I now want to redirect to the edit url
-            response.setViewName("redirect:/customer/edit/" + employee.getId() + "?success=true");
+            response.setViewName("redirect:/employee/edit/" + employee.getId() + "?success=true");
         }
         return response;
     }

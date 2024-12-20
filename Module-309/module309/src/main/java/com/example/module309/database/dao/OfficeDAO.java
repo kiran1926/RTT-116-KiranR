@@ -12,6 +12,9 @@ public interface OfficeDAO extends JpaRepository<Office, Long> {
     @Query("select o from Office o where o.city = :city")
     List<Office> findByCity(String city);
 
-   // Office findByOfficeId(Integer id);
+    Office findById(Integer id);
 
+    //native query
+    @Query(value = "select * from offices order by city asc;", nativeQuery = true)
+    List<Office> findAllOffices();
 }
