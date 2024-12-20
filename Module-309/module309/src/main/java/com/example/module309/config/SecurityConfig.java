@@ -2,14 +2,22 @@ package com.example.module309.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+
+    // Authentication --
+    // Authorization --
+    // Principal -- The user that logins
 
     //read about Builder Pattern
     @Bean
@@ -17,14 +25,15 @@ public class SecurityConfig {
 
         //nonce -read about it
         // you guys can research this if you want .. its for preventing automated bots and helps to increase the likelihood that its a human using your site
+        //this is default on  ... so we need to turn it off to prevent hair loss
         http.csrf(csrf -> csrf.disable());
 
-        // 1) All URLS are considered open and we restrict the URLS we want -- this is better for our use
+        // 1) All URLS are considered open and we restrict the URLS we want to protect -- this is better for our use
         // 2) All URLS are restricted and we open the ones we want
 
-        // this part of the configuration secures acutal URLS
-        // this is the list of URLS that require authentication to the website befroe the user can view the URL
-        // this works on the idea .. that all URLS are accessable to everyone excpt for the ones listed here
+        // this part of the configuration secures actual URLS
+        // this is the list of URLS that require authentication to the website before the user can view the URL
+        // this works on the idea .. that all URLS are accessible to everyone except for the ones listed here
 
 //        http.authorizeRequests()
 //                .requestMatchers(
@@ -52,7 +61,7 @@ public class SecurityConfig {
         http.logout(formLogout -> formLogout
                 // when the user logs out ... destroy the session the server side
                 .invalidateHttpSession(true)
-                // this is the acutal URL this is implemented by spring security and we are just specifying the get mapping for it
+                // this is the actual URL this is implemented by spring security and we are just specifying the get mapping for it
                 .logoutUrl("/login/logout")
                 // where does the user go after they have been logged out
                 // this is a URL that we have implemented somewhere in our project or controllers
@@ -60,6 +69,9 @@ public class SecurityConfig {
                 // extra security and delete these cookies when logging out
                 .deleteCookies("username", "JSESSIONID"));
 
+
+        http.exceptionHandling(exception -> exception
+                .accessDeniedPage("/error/404"));
 
         return http.build();
     }

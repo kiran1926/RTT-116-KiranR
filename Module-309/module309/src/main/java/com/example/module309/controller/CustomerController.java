@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-// serverity of the error message increases going down
+// severity of the error message increases going down
 // as developers 90% of the time we are going to use DEBUG
 // TRACE   -- this is very low level and not often used by us .. more for creators of libraries
 // DEBUG   -- this is what we use most of the time when we want to print out stuff that helps us build
@@ -34,6 +35,8 @@ import java.util.List;
 // log4j was the most commonly used logging library for a long time and you will probably encounter it
 //@Slf4j  <-  this is from lombok and all it does is line 40
 @Controller
+// by putting the @preAuthorize on the top of the controller it secures all methods in controller
+@PreAuthorize("hasAuthority('CUSTOMER')")
 public class CustomerController {
 
 
@@ -174,6 +177,4 @@ public class CustomerController {
         }
         return response;
     }
-
-
 }
