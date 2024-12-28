@@ -3,6 +3,8 @@ package com.example.module309.controller;
 import com.example.module309.database.dao.UserDAO;
 import com.example.module309.database.entity.User;
 import com.example.module309.form.SignupFormBean;
+import com.example.module309.security.AuthenticatedUserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class LoginController {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private AuthenticatedUserService authenticatedUserService;
     // -----------------------------  login page  --------------------------
 
 
@@ -42,7 +47,7 @@ public class LoginController {
     }
 
     @PostMapping("/login/signupSubmit")
-    public ModelAndView signupSubmit(@Valid SignupFormBean form, BindingResult bindingResult){
+    public ModelAndView signupSubmit(@Valid SignupFormBean form, BindingResult bindingResult, HttpSession session){
         ModelAndView response = new ModelAndView();
 
         //could manually check the email from the database and ADD an error to the binding
@@ -61,6 +66,9 @@ public class LoginController {
             user.setPassword(encryptedPassword);
 
             userDAO.save(user);
+
+            //since this is a new user we can manually authenticate them for the first time
+            authenticatedUserService.changeLoggedInUsername(session, form.getUsername(), form.getPassword());
 
             //redirect
             response.setViewName("redirect:/");

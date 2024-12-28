@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class SignupFormBean {
 
+    
     @NotEmpty(message = "Username is required.")
     private String username;
 

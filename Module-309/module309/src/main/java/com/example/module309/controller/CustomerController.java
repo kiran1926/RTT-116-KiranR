@@ -4,7 +4,9 @@ import com.example.module309.database.dao.CustomerDAO;
 import com.example.module309.database.dao.EmployeeDAO;
 import com.example.module309.database.entity.Customer;
 import com.example.module309.database.entity.Employee;
+import com.example.module309.database.entity.User;
 import com.example.module309.form.CreateCustomerFormBean;
+import com.example.module309.security.AuthenticatedUserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,8 +50,12 @@ public class CustomerController {
 
     @Autowired
     private CustomerDAO customerDAO;
+
     @Autowired
     private EmployeeDAO employeeDAO;
+
+    @Autowired
+    private AuthenticatedUserService authenticatedUserService;
 
     @GetMapping("/customer/search")
     public ModelAndView searchCustomer(@RequestParam(required = false) String firstName) {
@@ -85,6 +91,10 @@ public class CustomerController {
         LOG.error("ERROR LEVEL");
 
         response.setViewName("customer/createCustomer");
+
+        //this will get the entity
+        User loggedInUser = authenticatedUserService.loadCurrentUser();
+        LOG.debug("!!!!!!!!!!" + loggedInUser.toString());
 
         return response;
     }
@@ -167,6 +177,11 @@ public class CustomerController {
             //priming this for employee dropdown for after going to error
             Employee employee = employeeDAO.findById(form.getEmployeeId());
             customer.setEmployee(employee);
+
+            User loggedInUser = authenticatedUserService.loadCurrentUser();
+            LOG.debug("!!!!!!!!!!" + loggedInUser.toString());
+            //we can't do this here because the customer does not have a user is on the table
+            //customer.setUser(loggedInUser);
 
             customerDAO.save(customer);
 
