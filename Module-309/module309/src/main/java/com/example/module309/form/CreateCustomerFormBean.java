@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -48,6 +49,9 @@ public class CreateCustomerFormBean {
     @NotEmpty(message ="Country Name is required.")
     @Size(max = 50, message = "Country Name must be less than 50 characters")
     private String country;
+
+    //for file upload
+    private MultipartFile upload;
 
     private Integer employeeId;
 
