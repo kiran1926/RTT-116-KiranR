@@ -17,9 +17,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    // Authentication --
-    // Authorization --
-    // Principal -- The user that logins
+    // Authentication -- the act of checking the user's credentials i.e correct username and password
+    // Authorization -- is what the user can do
+    // Principal -- The user that logged in
 
     //read about Builder Pattern
     @Bean
