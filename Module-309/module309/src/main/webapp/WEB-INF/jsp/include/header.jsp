@@ -1,5 +1,6 @@
 <%-- JSTL --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--this line below is for bringing nay security stuff added after security config addition--%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
