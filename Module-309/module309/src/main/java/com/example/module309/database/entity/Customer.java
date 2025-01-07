@@ -69,6 +69,9 @@ public class Customer {
     @Column(name = "credit_limit", columnDefinition = "DECIMAL")
     private Double creditLimit;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     //practice of .equals() or use @EqualsAndHashCode annotation at the top and add at employee column @EqualsAndHashCode.Exclude like we did for @toString.Exclude
     @Override
     public boolean equals(Object o) {
