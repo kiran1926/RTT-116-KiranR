@@ -15,7 +15,7 @@ import java.util.List;
 public class IndexController {
 
     //essentially spring boot has created the Dao for us when it started up and it is already in memory all we have to do is
-    //autowire it and we can.. this is analogus to creating a new DAO in module 305
+    //autowire it and we can.. this is analogous to creating a new DAO in module 305
     @Autowired
     private CustomerDAO customerDAO;
 
@@ -25,20 +25,20 @@ public class IndexController {
         ModelAndView response = new ModelAndView();
 
         //the goal of this controller method is to do 2 things
-        // 1) Establish a view na,e if there is to be an HTML page that goes with this
+        // 1) Establish a view name if there is to be an HTML page that goes with this
         //this is our /WEB-INF/jsp/index.jsp
         response.setViewName("index");   // 6) on the architecture image converts "index" into "/WEB-INF/jsp/index.jsp"
 
-        // 2) load any information from the database that I need  to dosplay on the page
+        // 2) load any information from the database that I need  to display on the page
         // this could be dozens of queries if necessary
         List<Customer> firstNames = customerDAO.findByFirstName("Alexander");
         for(Customer c : firstNames){
             System.out.println(c);
         }
 
-        // once I have gathered something that i want to show on thjs page then I add it to the model
+        // once I have gathered something that I want to show on this page then I add it to the model
         //the model is nothing more than a HashMap
-        response.addObject("names", firstNames); // names is referncing to jsp names
+        response.addObject("names", firstNames); // names is referencing to jsp names
 
         // When I am finished and I return from this function I give control back to the  DispatcherServlet
         //to continue processing the request
@@ -46,7 +46,7 @@ public class IndexController {
         return response;
     }
 
-    @GetMapping("/pathVariable/{varName}")  //pathvariable is static part
+    @GetMapping("/pathVariable/{varName}")  //path variable is static part
     public ModelAndView pathVariable(@PathVariable String varName){  // varName "config by convention"
         ModelAndView response = new ModelAndView();
 

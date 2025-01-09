@@ -46,6 +46,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/customer/create">Create Customer</a>
                     </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/customer/ajaxExample">Ajax Example</a>
+                        </li>
                     </sec:authorize>
 
                     <li class="nav-item">

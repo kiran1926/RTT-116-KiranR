@@ -7,9 +7,13 @@ import com.example.module309.database.entity.Employee;
 import com.example.module309.database.entity.User;
 import com.example.module309.form.CreateCustomerFormBean;
 import com.example.module309.security.AuthenticatedUserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +21,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -149,6 +150,29 @@ public class CustomerController {
         //if(StringUtils.isEmpty(slug){
         //response.setViewName("")}
 
+//        String s1 = null;
+//        String s2 = "abc";
+//        if ( s1 != null && s1.equals(s2)){
+//
+//        }
+//
+//        StringUtils.equals("abc", "abc");
+//
+//        if ( s1 == null || s1.equals(s2)){
+//
+//        }
+
+//        //password check
+//        if ( ! StringUtils.equals (form.getPassword(), form.getConfirmPassword())) {
+//            bindingResult.rejectValue("confirmPassword", "does not matter", "password don't match");
+//        }
+
+        //manually do some validations added on 9th jan
+        if (form.getCountry().startsWith("X")){
+            //we are not allowing countries that starts woth X anymore
+            bindingResult.rejectValue("country", "country error","Country must not begin with x");
+        }
+
         //System.out.println(form); //forbidden
         LOG.debug(form.toString());
 
@@ -212,5 +236,22 @@ public class CustomerController {
             response.setViewName("redirect:/customer/edit/" +customer.getId() + "?success=true");
         }
         return response;
+    }
+
+    //ajax
+    @GetMapping("/customer/ajaxExample")
+        public ModelAndView ajaxExample(){
+            ModelAndView response = new ModelAndView();
+            response.setViewName("customer/ajaxExample");
+            return response;
+        }
+
+    @ResponseBody
+    @GetMapping("/customer/ajaxCall")
+    public String ajaxCall(@RequestParam Integer customerId) throws Exception {
+        Customer customer = customerDAO.findById(customerId);
+
+        String json = new ObjectMapper().writeValueAsString(customer);
+        return json;
     }
 }
