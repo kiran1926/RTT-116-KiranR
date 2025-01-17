@@ -153,15 +153,10 @@ public class CustomerController {
 //        String s1 = null;
 //        String s2 = "abc";
 //        if ( s1 != null && s1.equals(s2)){
-//
 //        }
-//
 //        StringUtils.equals("abc", "abc");
-//
 //        if ( s1 == null || s1.equals(s2)){
-//
 //        }
-
 //        //password check
 //        if ( ! StringUtils.equals (form.getPassword(), form.getConfirmPassword())) {
 //            bindingResult.rejectValue("confirmPassword", "does not matter", "password don't match");
