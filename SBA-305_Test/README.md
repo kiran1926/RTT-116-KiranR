@@ -12,11 +12,6 @@ Valid students are able to see the courses they are registered for.
 Valid students are able to register for any course in the system as
 long as they are not already registered.
 
-### Submission Guideline
-After completing all of the tasks or requirements, show it to the instructor and convert your project into a zip file. Upload the zip file to Canvas. 
-**(NOTE: Do not upload / push on github)**
-
-
 ### Maven Project Requirements:
 
 - [Amazon Corretto 17 JDK](https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html) 
@@ -69,7 +64,6 @@ Each Model class **requires**:
 #### Requirement 2 - Data Access Object  (dao) interfaces:
 
 ##### StudentI:
-- You can **NOT** add more methods in the interfaces than the definition below.
   
 | Abstract method         | Return type    | Parameters                    | Description                                                                                                     | 
 |-------------------------|----------------|-------------------------------|-----------------------------------------------------------------------------------------------------------------|
@@ -81,7 +75,6 @@ Each Model class **requires**:
 | getStudentCourses       | List\<Course>  | String email                  | get all the student courses list (use native query), also handle commit,rollback, and exceptions                | 
 
 ##### CourseI:
-- You can **NOT** add more methods in the interfaces than the definition below.
   
 | Abstract method         | Return type   | Parameters                    | Description                                                                                                     | 
 |-------------------------|---------------|-------------------------------|-----------------------------------------------------------------------------------------------------------------|
@@ -92,7 +85,7 @@ Each Model class **requires**:
 #### Requirement 3 - Service layer:
 The classes listed below are concrete classes. The following class implements the **StudentI** and **CourseI** interfaces, as well as overrides and implements all abstract service methods.
 
-implement interfaces:
+implemented interfaces:
 - StudentService
 - CourseService
 ---
@@ -102,7 +95,7 @@ implement interfaces:
 - Configuration file (hibernate.cfg.xml) can be found under *src/main/resources/*
 ---
 #### Requirement 5 - JUnit:
-- Write at least one junit test
+- Test-driven development 
 ---
 #### Project Tree example
 ![project_tree](images/project_tree.png)
